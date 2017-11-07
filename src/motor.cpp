@@ -6,31 +6,34 @@ Motor::Motor(const robot_link rlink, const int& motor_number, const int& motor_g
     m_Rlink(rlink), m_DefaultSpeed(50), m_MotorNumber(motor_number), m_MotorGo(motor_go_number) 
 {}
 
-void Motor::MoveForward() const
-{   // Drives motor forward at data member 'm_DefaultSpeed'
-    this->MoveForward(m_DefaultSpeed);
+int Motor::Rotate(bool direction) const
+{
+    // Drives motor forward at data member 'm_DefaultSpeed'
+    return Rotate(m_DefaultSpeed, direction);
 }
 
-void Motor::MoveForward(const uint& speed) const
-{   // Drives motor forward at 'speed'
+int Motor::Rotate(const unsigned int &speed, bool direction) const
+{
+    // Drives motor forward at 'speed'
+
+    // speed magnitude is given between 0-MAX_MOTOR_SPEED
+
+    // the direction variable determines whether the motor will spin in the clockwise or anti-clockwise direction
+    // direction true is **clockwise**
 
     // Ensure that the selected speed does not exceed the maximum permitted
-    if (speed > MOTOR_MAX_SPEED) { speed = MOTOR_MAX_SPEED; }
 
-    this->m_Rlink.command(this->m_MotorGoNumber, this->speed);
-}    
+    // motor_speed variable is passed to command to microcontroller
+    int motor_speed = speed;
 
-void Motor::MoveBackward() const
-{   // Drives motor backwards at data member 'm_DefaultSpeed'
-    this->MoveBacward(m_DefaultSpeed + MOTOR_MAX_SPEED);
+    if ((speed > MAX_MOTOR_SPEED))
+    {
+        errorLog.Log(ErrorLog::ErrorType::MOTOR_SPEED);
+        return 0;
+    }
+
+    // checks for direction and if reverse sets 8th bit of motor_speed
+    if (!direction) motor_speed += 128;
+
+    m_Rlink.command(m_MotorGo, motor_speed);
 }
-
-void Motor::MoveBackward(const uint& speed) const
-{   // Move motor backwards at 'speed'
-    uint reverse_speed = speed + MOTOR_MAX_SPEED
-
-    // Ensure that the speed does not exceed the maximum permitted value
-    if (reverse_speed > MOTOR_MAX_REVERSE_SPEED) { reverse_speed = MOTOR_MAX_REVERSE_SPEED; }
-    this->MoveForward(reverse_speed);
-}
-

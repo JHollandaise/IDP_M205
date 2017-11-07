@@ -1,27 +1,32 @@
-#ifndef robot_link.h
+#ifndef MOTOR_H
+#define MOTOR_H
+
 #include <robot_link.h>
-#endif
+#include "ErrorLog.h"
 
 // Useful constants
 #define MAX_MOTOR_SPEED 127
-#define MAX_MOTOR_REVERSE_SPEED 255
+
 
 // Motor class declaration
+
 class Motor
 {
  public:
-     Motor(const robot_link rlink, const int& motor_number, const int& motor_go_number);
+    Motor(const robot_link rlink, const int& motor_number, const int& motor_go_number);
 
-     void MoveForward() const;
-     void MoveForward(const uint& speed) const;
-     void MoveBackward() const;
-     void MoveBackward(const uint& speed) const;
+    int Rotate(bool direction) const;
+    int Rotate(const unsigned int &speed, bool direction) const;
 
- private:
-     int m_DefaultSpeed;
-     int m_MotorNumber;
-     int m_MotorGo;
-     const robot_link m_Rlink;
-}
+private:
+    unsigned int m_DefaultSpeed;
+    int m_MotorNumber;
+    int m_MotorGo;
+    const robot_link m_Rlink;
+
+    ErrorLog& errorLog;
 
 
+};
+
+#endif

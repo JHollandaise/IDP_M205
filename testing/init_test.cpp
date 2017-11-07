@@ -24,5 +24,5 @@ else if (val == REQUEST_ERROR) {
 }
 else
   cout << "Test failed (bad value returned)" << endl;
-return -1;                          // error, finish
+return -1;                          // errorLog, finish
 }
