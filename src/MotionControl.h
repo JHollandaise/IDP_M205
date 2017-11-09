@@ -8,11 +8,11 @@
 
 class MotionControl {
 public:
-    MotionControl();
 
     std::vector<std::vector<std::string>>* GetShortestPath(std::string start, std::string end,
-                                              std::vector<std::string> path = {});
-    );
+                                                                 std::vector<std::string> path);
+
+    std::vector<std::vector<std::string>>* GetShortestPath(std::string start, std::string end);
 
 private:
 

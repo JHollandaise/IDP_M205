@@ -21,3 +21,7 @@ MotionControl::GetShortestPath(const std::string start,const std::string end, st
         }
     }
 }
+
+std::vector<std::vector<std::string>> *MotionControl::GetShortestPath(std::string start, std::string end) {
+    return GetShortestPath(start,end,{});
+}
