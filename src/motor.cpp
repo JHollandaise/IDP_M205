@@ -3,13 +3,13 @@
 
 // Class constructor
 Motor::Motor(const robot_link rlink, const int& motor_number, const int& motor_go_number):
-    m_Rlink(rlink), m_DefaultSpeed(50), m_MotorNumber(motor_number), m_MotorGo(motor_go_number) 
+    m_Rlink(rlink), m_MotorNumber(motor_number), m_MotorGo(motor_go_number) 
 {}
 
 int Motor::Rotate(bool direction) const
 {
-    // Drives motor forward at data member 'm_DefaultSpeed'
-    return Rotate(m_DefaultSpeed, direction);
+    // Drives motor forward at the default speed
+    return Rotate(MOTOR_DEFAULT_SPEED, direction);
 }
 
 int Motor::Rotate(const unsigned int &speed, bool direction) const

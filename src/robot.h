@@ -5,7 +5,10 @@
 #include <robot_link.h>
 
 #include "motor.h"
+#include "light_sensor.h"
 #include "ErrorLog.h"
+#include "global.h"
+
 
 class Robot
 {
@@ -22,25 +25,28 @@ private:
     bool motorLeftDir;
     bool motorRightDir;
 
-    // The distance between the wheels in meters
-    float wheelSeparation;
+    // Speed the robot is currently travelling at
+    int mSpeed;
+
+    // The three light senssors
+    LightSensor LSensorLeft;
+    LightSensor LSensorCentre;
+    LightSensor LSensorRight;
 
     ErrorLog& errorLog;
 
-    void SetMotor(Motor motor);
-
-
-
 public:
 
-    Robot(robot_link rlink, float wheelSeparation, Motor motorLeft, Motor motorRight);
+    Robot(const robot_link& rlink);
 
-    void MoveForward(unsigned float time, unsigned int speed) const;
-    void MoveBackward(unsigned float time, unsigned int speed) const;
+    void MoveForward(const uint& speed, const ufloat& time = 0.0) const;
+    void MoveBackward(const uint& speed, const ufloat& time = 0.0) const;
+    void StopMoving() const;
 
-    void MoveDist(float distance) const;
+    void MoveDist(const ufloat& distance, const bool& reverse = false) const;
+    void TurnDegrees(const float& angle) const;
 
-    void TurnDegrees(float angle) const;
+    void FollowLine(const uint& strategy = 0) const;
 };
 
 #endif

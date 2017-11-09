@@ -6,7 +6,7 @@
 
 // Useful constants
 #define MAX_MOTOR_SPEED 127
-
+#define DEFAULT_MOTOR_SPEED 50
 
 // Motor class declaration
 
@@ -19,13 +19,11 @@ class Motor
     int Rotate(const unsigned int &speed, bool direction) const;
 
 private:
-    unsigned int m_DefaultSpeed;
     int m_MotorNumber;
     int m_MotorGo;
     const robot_link m_Rlink;
 
     ErrorLog& errorLog;
-
 
 };
 
