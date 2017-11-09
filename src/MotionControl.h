@@ -9,13 +9,26 @@
 class MotionControl {
 public:
 
-    // returns all possible node paths to treverse from node start to node end
-    std::vector<std::vector<int>> GetAllPaths(const int start, const int end, std::vector<int> path, int depth);
-    std::vector<std::vector<int>> GetAllPaths(const int start, const int end);
+    enum  NodeName  {
+        S,
+        D1, D2, D3,
+        D4, D5, D6,
+        P1, P2,
+        Dl, Tl,
+        Ts,
+        Tr, Dr,
+    };
+
+    // returns all possible node paths to traverse from node start to node end
+    std::vector<std::vector<NodeName>> GetAllPaths(const NodeName start, const NodeName end, std::vector<NodeName > path);
+    std::vector<std::vector<NodeName>> GetAllPaths(const NodeName start, const NodeName end);
 
 
     // shortest path from vector of node paths
-    std::vector<int> GetShortestPath(std::vector<std::vector<int>> paths);
+    std::vector<NodeName> GetShortestPath(std::vector<std::vector<NodeName>> paths);
+
+
+
 private:
 
     int straight_on();
@@ -24,48 +37,40 @@ private:
 
     int turn_right();
 
+
+
     // table nodes and lines
-    // ie { {"Node name",{"Connected node 1", "Connected node 2",...}, {...} }
+    // ie { {Node name,{Connected node 1, Connected node 2, ...}, {...} }
 
-    std::map<int,std::vector<int> > track_graph = {
+    std::map<NodeName ,std::vector<NodeName> > track_graph = {
+            {NodeName::D1,{NodeName::Dl}},
+            {NodeName::D2,{NodeName::Dl}},
+            {NodeName::D3,{NodeName::Dl}},
 
-            {1,{9}},
-            {2,{9}},
-            {3,{9}},
+            {NodeName::D4,{NodeName::Dr}},
+            {NodeName::D5,{NodeName::Dr}},
+            {NodeName::D6,{NodeName::Dr}},
 
-            {4,{13}},
-            {5,{13}},
-            {6,{13}},
+            {NodeName::Dl,{NodeName::D1,NodeName::D2,NodeName::D3,NodeName::Tl}},
+            {NodeName::Dr,{NodeName::D4,NodeName::D5,NodeName::D6,NodeName::Tr}},
 
-            {9,{1,2,3,10}},
-            {13,{4,5,6,12}},
+            {NodeName::Tl,{NodeName::Dl,NodeName::Ts}},
+            {NodeName::Tr,{NodeName::Dr,NodeName::Ts}},
+            {NodeName::Ts,{NodeName::Tl,NodeName::Tr,NodeName::S}},
 
-            {10,{9,11}},
-            {12,{13,11}},
-            {11,{10,12,0}},
+            {NodeName::P1,{NodeName::S}},
+            {NodeName::P2,{NodeName::S}},
 
-            {7,{0}},
-            {8,{0}},
-
-            {0,{7,8,11}}
+            {NodeName::S,{NodeName::P1,NodeName::P2,NodeName::Ts}}
     };
-
-    // distance between points on table
-    // ie { {"Node name",{ { "Connected node",distance(mm)}, {...} } }, {...} }
-    std::map<int,std::map<int, int> > link_dists = {
-            {9,{ {1,1},{2,1},{3,1},{10,1} }},
-            {13,{ {4,1},{5,1},{6,1},{12,1} }},
-
-            {11,{ {10,1},{12,1},{0,1} }},
-
-            {0,{ {7,1},{8,1} }}
-    };
-
 
     // actions to take on arriving at / leaving a node
     // ie {node value, { { {functions_on_arriving} , {functions_on_leaving} }}
     std::map<int, std::vector<std::vector<int (MotionControl::*)()>>> node_actions = {
-            {0, { {&MotionControl::turn_right}, {&MotionControl::straight_on}}}
+            {NodeName::S, { {&MotionControl::turn_right}, {&MotionControl::straight_on}}},
+            {NodeName::D1, { {&MotionControl::turn_right}, {&MotionControl::straight_on}}},
+
+
     };
 
 

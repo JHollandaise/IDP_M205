@@ -2,11 +2,11 @@
 #include "MotionControl.h"
 
 
-std::vector<std::vector<int>>
-MotionControl::GetAllPaths(const int start, const int end, std::vector<int> path, int depth)
+std::vector<std::vector<MotionControl::NodeName>>
+MotionControl::GetAllPaths(const NodeName start, const NodeName end, std::vector<NodeName> path)
 {
 
-    std::vector<std::vector<int>> succesful_paths;
+    std::vector<std::vector<NodeName>> succesful_paths;
 
     path.push_back(start);
 
@@ -15,7 +15,7 @@ MotionControl::GetAllPaths(const int start, const int end, std::vector<int> path
         return succesful_paths;
     }
 
-    std::vector<std::vector<int>> paths;
+    std::vector<std::vector<NodeName>> paths;
 
     if (track_graph.find(start)==track_graph.end())
     {
@@ -26,7 +26,7 @@ MotionControl::GetAllPaths(const int start, const int end, std::vector<int> path
     {
         if (std::find(path.begin(), path.end(), adjacent_node) == path.end() )
         {
-            auto new_paths = GetAllPaths(adjacent_node, end, path, depth + 1);
+            auto new_paths = GetAllPaths(adjacent_node, end, path);
 
             for (const auto current_path: new_paths)
             {
@@ -39,15 +39,15 @@ MotionControl::GetAllPaths(const int start, const int end, std::vector<int> path
 }
 
 
-std::vector<std::vector<int>>
-MotionControl::GetAllPaths(const int start, const int end)
+std::vector<std::vector<MotionControl::NodeName>>
+MotionControl::GetAllPaths(const NodeName start, const NodeName end)
 {
-    return GetAllPaths(start, end, {}, 0);
+    return GetAllPaths(start, end, {});
 }
 
-std::vector<int> MotionControl::GetShortestPath(std::vector<std::vector<int>> paths)
+std::vector<MotionControl::NodeName> MotionControl::GetShortestPath(std::vector<std::vector<NodeName>> paths)
 {
-    std::vector<int> shortest_path {};
+    std::vector<NodeName> shortest_path {};
     int shortest_path_size;
 
     for (const auto current_path : paths)
