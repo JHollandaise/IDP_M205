@@ -45,7 +45,8 @@ MotionControl::GetAllPaths(const int start, const int end)
     return GetAllPaths(start, end, {}, 0);
 }
 
-std::vector<int> MotionControl::GetShortestPath(std::vector<std::vector<int>> paths) {
+std::vector<int> MotionControl::GetShortestPath(std::vector<std::vector<int>> paths)
+{
     std::vector<int> shortest_path {};
     int shortest_path_size;
 
@@ -61,4 +62,16 @@ std::vector<int> MotionControl::GetShortestPath(std::vector<std::vector<int>> pa
     }
 
     return shortest_path;
+}
+
+int MotionControl::straight_on() {
+    return 0;
+}
+
+int MotionControl::turn_left() {
+    return 0;
+}
+
+int MotionControl::turn_right() {
+    return 0;
 }

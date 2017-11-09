@@ -4,6 +4,5 @@ int main()
 {
 
     MotionControl controller;
-
     return 0;
 }

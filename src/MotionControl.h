@@ -9,13 +9,20 @@
 class MotionControl {
 public:
 
+    // returns all possible node paths to treverse from node start to node end
     std::vector<std::vector<int>> GetAllPaths(const int start, const int end, std::vector<int> path, int depth);
-
     std::vector<std::vector<int>> GetAllPaths(const int start, const int end);
 
+
+    // shortest path from vector of node paths
     std::vector<int> GetShortestPath(std::vector<std::vector<int>> paths);
 private:
 
+    int straight_on();
+
+    int turn_left();
+
+    int turn_right();
 
     // table nodes and lines
     // ie { {"Node name",{"Connected node 1", "Connected node 2",...}, {...} }
@@ -53,7 +60,16 @@ private:
 
             {0,{ {7,1},{8,1} }}
     };
+
+
+    // actions to take on arriving at / leaving a node
+    // ie {node value, { { {functions_on_arriving} , {functions_on_leaving} }}
+    std::map<int, std::vector<std::vector<int (MotionControl::*)()>>> node_actions = {
+            {0, { {&MotionControl::turn_right}, {&MotionControl::straight_on}}}
+    };
+
+
 };
 
 
-#endif //IDP_M205_MOTIONCONTROL_H
+#endif
