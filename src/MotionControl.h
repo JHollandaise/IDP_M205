@@ -10,17 +10,15 @@ class MotionControl {
 public:
     MotionControl();
 
-    std::vector<std::string>* GetShortestPath(std::string start, std::string end,
-                                              std::vector<std::string> path = {},
-                                              int path_length = 0);
+    std::vector<std::vector<std::string>>* GetShortestPath(std::string start, std::string end,
+                                              std::vector<std::string> path = {});
     );
-
-    void set_track_graph(std::map<std::string,std::vector<std::string> > track_graph);
-    void set_link_dists(std::map<std::string,std::map<std::string,float> > link_dists);
 
 private:
 
 
+    // table nodes and lines
+    // ie { {"Node name",{"Connected node 1", "Connected node 2",...}, {...} }
 
     std::map<std::string,std::vector<std::string> > track_graph = {
 
@@ -45,6 +43,8 @@ private:
             {"S",{"P1","P2","Ts"}}
     };
 
+    // distance between points on table
+    // ie { {"Node name",{ { "Connected node",distance(mm)}, {...} } }, {...} }
     std::map<std::string,std::map<std::string, int> > link_dists = {
             {"Dl",{ {"D1",1},{"D2",1},{"D3",1},{"Tl",1} }},
             {"Dr",{ {"D4",1},{"D5",1},{"D6",1},{"Tr",1} }},
