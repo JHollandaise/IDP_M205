@@ -9,49 +9,49 @@
 class MotionControl {
 public:
 
-    std::vector<std::vector<std::string>>* GetShortestPath(std::string start, std::string end,
-                                                                 std::vector<std::string> path);
+    std::vector<std::vector<int>> GetAllPaths(const int start, const int end, std::vector<int> path, int depth);
 
-    std::vector<std::vector<std::string>>* GetShortestPath(std::string start, std::string end);
+    std::vector<std::vector<int>> GetAllPaths(const int start, const int end);
 
+    std::vector<int> GetShortestPath(std::vector<std::vector<int>> paths);
 private:
 
 
     // table nodes and lines
     // ie { {"Node name",{"Connected node 1", "Connected node 2",...}, {...} }
 
-    std::map<std::string,std::vector<std::string> > track_graph = {
+    std::map<int,std::vector<int> > track_graph = {
 
-            {"D1",{"Dl"}},
-            {"D2",{"Dl"}},
-            {"D3",{"Dl"}},
+            {1,{9}},
+            {2,{9}},
+            {3,{9}},
 
-            {"D4",{"Dr"}},
-            {"D5",{"Dr"}},
-            {"D6",{"Dr"}},
+            {4,{13}},
+            {5,{13}},
+            {6,{13}},
 
-            {"Dl",{"D1","D2","D3","Tl"}},
-            {"Dr",{"D4","D5","D6","Tr"}},
+            {9,{1,2,3,10}},
+            {13,{4,5,6,12}},
 
-            {"Tl",{"Dl","Ts"}},
-            {"Tr",{"Dr","Ts"}},
-            {"Ts",{"Tl","Tr","S"}},
+            {10,{9,11}},
+            {12,{13,11}},
+            {11,{10,12,0}},
 
-            {"P1",{"S"}},
-            {"P2",{"S"}},
+            {7,{0}},
+            {8,{0}},
 
-            {"S",{"P1","P2","Ts"}}
+            {0,{7,8,11}}
     };
 
     // distance between points on table
     // ie { {"Node name",{ { "Connected node",distance(mm)}, {...} } }, {...} }
-    std::map<std::string,std::map<std::string, int> > link_dists = {
-            {"Dl",{ {"D1",1},{"D2",1},{"D3",1},{"Tl",1} }},
-            {"Dr",{ {"D4",1},{"D5",1},{"D6",1},{"Tr",1} }},
+    std::map<int,std::map<int, int> > link_dists = {
+            {9,{ {1,1},{2,1},{3,1},{10,1} }},
+            {13,{ {4,1},{5,1},{6,1},{12,1} }},
 
-            {"Ts",{ {"Tl",1},{"Tr",1},{"S",1} }},
+            {11,{ {10,1},{12,1},{0,1} }},
 
-            {"S",{ {"P1",1},{"P2",1} }}
+            {0,{ {7,1},{8,1} }}
     };
 };
 
