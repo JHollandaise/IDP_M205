@@ -71,48 +71,64 @@ void Robot::TurnDegrees(const float& angle) const
             
 }
 
-void Robot::FollowLine(const uint& strategy) const
+const int Robot::FollowLine(const uint& strategy, const bool& stop) const
 {   // Line-following algorithm using straddling extreme sensors and a central sensor on the line - sensors are off if they are on the line
     const bool left_on = LSensorLeft.GetOutput();     // normally true
     const bool centre_on = LSensorCentre.GetOutput();     // normally false
     const bool right_on = LSensorRight.GetOutput();   // normally true
+    
+    while (!stop)
+    {
+        // Continue current path
+        if (left_on && !centre_on && right_on) {}
+        // Turn left
+        else if (!left_on && right_on) TurnDegrees(-DEFAULT_ROBOT_TURN_ANGLE);
+        // Turn right
+        else if (left_on && !right_on) TurnDegrees(DEFAULT_ROBOT_TURN_ANGLE);
+        else if (!left_on && !right_on)
+        {   // The robot has hit a junction - a decision has to be made here
+            switch(strategy)
+            {
+            case 0:
+                // Continue current path
+                return 0;
+                break;
 
-    // Continue current path
-    if (left_on && !centre_on && right_on) break;
-    // Turn left
-    else if (!left_on && right_on) TurnDegrees(-DEFAULT_ROBOT_TURN_ANGLE);
-    // Turn right
-    else if (left_on && !right_on) TurnDegrees(DEFULT_ROBOT_TURN_ANGLE);
-    else if (!left_on && !right_on)
-    {   // The robot has hit a junction - a decision has to be made here
-        switch(strategy)
-        {
-         case 0:
-            // Continue current path
-            break;
+            case 1:
+                // Turn left
+                TurnDegrees(-DEFAULT_ROBOT_TURN_ANGLE)
+                return 1;
+                break;
 
-        case 1:
-            // Turn left
-            TurnDegrees(-DEFAULT_ROBOT_TURN_ANGLE)
-            break;
+            case 2:
+                // Turn right
+                TurnDegrees(DEFAULT_ROBOT_TURN_ANGLE)
+                return 2;
+                break;
 
-        case 2:
-            // Turn right
-            TurnDegrees(DEFAULT_ROBOT_TURN_ANGLE)
+            case 3:
+                // Reverse by a certain distance
+                MoveDist(-1.0);
+                return 4;
+                break;
 
-        case 3:
-            // Reverse by a certain distance
-            MoveDist(-1.0);
-            break;
-
-        default:
-            // Log this as an error - the above list should be exhaustive
+            default:
+                // Log this as an error - the above list is exhaustive
+                // @TODO add error log entry here
+                return -1;
+                break;
+            }
+        }
+        
+        else 
+        {   // The robot has lost the line completely - log this
             // @TODO add error log entry here
-            break;
+            return 5;
         }
     }
-    // The robot has lost the line completely - there is nothing to be done
-    else break;
+
+    // The algorithm was overriden manually
+    return 6;
 }
 
 

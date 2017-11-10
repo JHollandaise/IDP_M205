@@ -46,7 +46,7 @@ public:
     void MoveDist(const ufloat& distance, const bool& reverse = false) const;
     void TurnDegrees(const float& angle) const;
 
-    void FollowLine(const uint& strategy = 0) const;
+    const int FollowLine(const uint& strategy = 0, const bool& stop = false) const;
 };
 
 #endif
