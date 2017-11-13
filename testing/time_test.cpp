@@ -6,7 +6,7 @@
 #define ROBOT_NUM 8
 
 using namespace std;
-robot_link rlink    // Link to the robot
+robot_link rlink;    // Link to the robot
 
 
 int main ()
@@ -21,15 +21,16 @@ val = rlink.request (TEST_INSTRUCTION); // send test instruction
 if (val == TEST_INSTRUCTION_RESULT) {   // check result
     // Start the timer
     stopwatch watch;
-    watch.start()
+    watch.start();
 
-    // Send a request 100 times
-    for (uint i = 0; i < 100; i++)
-        {   rlink.request(STATUS)  }
+    // Send a request ITER times
+    const int ITER = 1000;
+    for (int i = 0; i < ITER; i++)
+        {   rlink.request(STATUS);  }
 
     // Stop timer and record time taken
-    const float time = watch.stop()/100
-    cout << "Test passed at " << time << " s/iteration" << endl;
+    const float time = float(watch.stop())/float(ITER);
+    cout << "Test passed at " << time << " ms/iteration" << endl;
 
   return 0;                            // all OK, finish
 }
