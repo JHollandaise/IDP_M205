@@ -71,7 +71,7 @@ void Robot::TurnDegrees(const float& angle) const
             
 }
 
-const int Robot::FollowLine(const uint& strategy, const bool& stop) const
+const int Robot::FollowLine(const bool& stop) const
 {   // Line-following algorithm using straddling extreme sensors and a central sensor on the line - sensors are off if they are on the line
     const bool left_on = LSensorLeft.GetOutput();     // normally true
     const bool centre_on = LSensorCentre.GetOutput();     // normally false
@@ -87,48 +87,18 @@ const int Robot::FollowLine(const uint& strategy, const bool& stop) const
         else if (left_on && !right_on) TurnDegrees(DEFAULT_ROBOT_TURN_ANGLE);
         else if (!left_on && !right_on)
         {   // The robot has hit a junction - a decision has to be made here
-            switch(strategy)
-            {
-            case 0:
-                // Continue current path
-                return 0;
-                break;
-
-            case 1:
-                // Turn left
-                TurnDegrees(-DEFAULT_ROBOT_TURN_ANGLE)
-                return 1;
-                break;
-
-            case 2:
-                // Turn right
-                TurnDegrees(DEFAULT_ROBOT_TURN_ANGLE)
-                return 2;
-                break;
-
-            case 3:
-                // Reverse by a certain distance
-                MoveDist(-1.0);
-                return 4;
-                break;
-
-            default:
-                // Log this as an error - the above list is exhaustive
-                // @TODO add error log entry here
-                return -1;
-                break;
-            }
+            return 0;
         }
         
         else 
         {   // The robot has lost the line completely - log this
             // @TODO add error log entry here
-            return 5;
+            return -1;
         }
     }
 
     // The algorithm was overriden manually
-    return 6;
+    return 1;
 }
 
 
