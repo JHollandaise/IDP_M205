@@ -1,5 +1,5 @@
-#ifndef SENSOR_BASE.H
-#define SENSOR_BASE.H
+#ifndef SENSOR_BASE_H
+#define SENSOR_BASE_H
 
 // Sensor base class
 

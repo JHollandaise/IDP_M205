@@ -1,5 +1,5 @@
-#ifndef GLOBAL.H
-#define GLOBAL.H
+#ifndef GLOBAL_H
+#define GLOBAL_H
 
 // Global header file
 

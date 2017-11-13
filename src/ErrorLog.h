@@ -1,7 +1,3 @@
-//
-// Created by Joseph Holland  on 07/11/2017.
-//
-
 #ifndef ERRORLOG_H
 #define ERRORLOG_H
 
@@ -25,6 +21,8 @@ public:
 
 
 private:
+
+    // @TODO Implement error log functionality
     void printError();
 
     void SaveToFIle();

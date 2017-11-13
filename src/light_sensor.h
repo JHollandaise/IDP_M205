@@ -1,5 +1,5 @@
-#ifndef LIGHT_SENSOR.h
-#define LIGHT_SENSOR.h
+#ifndef LIGHT_SENSOR_h
+#define LIGHT_SENSOR_h
 
 #include "sensor_base.h"
 
