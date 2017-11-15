@@ -2,6 +2,7 @@
 #include <iostream>
 #include <robot_instr.h>
 #include <robot_link.h>
+#include <vector>
 #define ROBOT_NUM 8     // The id number (see below)
 
 using namespace std;
@@ -17,8 +18,17 @@ if (!rlink.initialise (ROBOT_NUM)) { // setup the link
 }
 val = rlink.request (TEST_INSTRUCTION); // send test instruction
 if (val == TEST_INSTRUCTION_RESULT) {   // check result
-    auto v = rlink.request(READ_PORT_0);
-    cout << v << endl;
+    int last_reading = rlink.request(READ_PORT_0);    
+    cout << last_reading << endl;    
+
+    while (last_reading != 129)
+    { 
+	if (rlink.request(READ_PORT_0) != last_reading)
+	{ 	
+	    last_reading = rlink.request(READ_PORT_0);
+	    cout << last_reading << endl;   
+	} 
+    }
   return 0;                            // all OK, finish
 }
 else if (val == REQUEST_ERROR) {
