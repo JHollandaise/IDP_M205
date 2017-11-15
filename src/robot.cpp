@@ -1,6 +1,7 @@
 #include <robot_instr.h>
 #include <robot_link.h>
 #include <ctime>
+#include <cstdlib>
 
 #include "motor.h"
 #include "robot.h"
@@ -58,9 +59,9 @@ void Robot::StopMoving() const
 void Robot::MoveDist(const float& distance, const bool& reverse) const
 {   // Move the robot forward by the specified distance
     // @TODO check how loading affects RPM
-    uint speed = mSpeed
+    uint speed = mSpeed;
 
-    const ufloat time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS))
+    const ufloat time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS));
     
     if (reverse) MoveBackward(time, speed);
     else MoveForward(time, speed);
@@ -68,7 +69,34 @@ void Robot::MoveDist(const float& distance, const bool& reverse) const
 
 void Robot::TurnDegrees(const float& angle) const
 {   // Turns the robot **clockwise** through the specified angle
-            
+    int speed_left = 0;
+    int speed_right = 0;
+    ufloat velocity = 0;
+
+    // Express angle in radians and use the wheel separation as the radius of curvature to determine the arc length of the curve taken
+    const uint arc_length = PI*abs(angle)/180 * WHEEL_SEPARATION;
+
+    if (angle > 0)
+    {   // Drive the left wheel faster than the right for an amount of time
+        speed_left = MAX_MOTOR_SPEED;
+        velocity = (WHEEL_DIAMETER/2) * (speed_left * SPEED_TO_RPM * RPM_TO_RADS);
+
+    } else if (angle < 0) {
+        // Drive the right wheel faster than the left for an amount of time
+        speed_right = MAX_MOTOR_SPEED;
+        velocity = (WHEEL_DIAMETER/2) * (speed_right * SPEED_TO_RPM * RPM_TORADS);
+    }         
+
+    const ufloat time = arc_length/velocity;
+
+    // Make the turn
+    motorLeft.Rotate(left_speed, motorLeftDir);
+    motorRight.Rotate(right_speed, motorRightDir);
+
+    Wait(time);
+
+    // Turn finished - drive motors at the same speed again
+    MoveForward(mSpeed);
 }
 
 const int Robot::FollowLine(const bool& stop) const

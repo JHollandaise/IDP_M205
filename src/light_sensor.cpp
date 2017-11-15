@@ -9,6 +9,11 @@ LightSensor::LightSensor(const bool& STATUS)
     sensorCount += 1;
 }
 
+const bool GetOutput() const
+{
+    
+}
+
 const uint GetSensorCount() const
 {   // Returns the number of sensor of this type
     return sensorCount;
