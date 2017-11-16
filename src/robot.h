@@ -37,8 +37,6 @@ private:
     ErrorLog& errorLog;
 
 
-
-
 public:
 
     enum direction {

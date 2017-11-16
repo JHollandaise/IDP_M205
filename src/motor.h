@@ -15,13 +15,13 @@ class Motor
  public:
     Motor(const robot_link rlink, const int& motor_number, const int& motor_go_number);
 
-    int Rotate(bool direction) const;
-    int Rotate(const unsigned int &speed, bool direction) const;
+    void Rotate(bool direction) const;
+    void Rotate(const unsigned int &speed, bool direction) const;
 
 private:
-    int m_MotorNumber;
-    int m_MotorGo;
-    const robot_link m_Rlink;
+    int motorNumber;
+    int motorGo;
+    const robot_link rlink;
 
     ErrorLog& errorLog;
 

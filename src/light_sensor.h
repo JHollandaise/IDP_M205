@@ -6,9 +6,9 @@
 class LightSensor : public Sensor
 {
 public:
-    LightSensor(const bool& STATUS = 1);
+    LightSensor(const robot_link& RLINK, const int& READ_NUMBER, const bool& STATUS = 1);
    
-    const bool GetOutput() const;
+    const int GetOutput() const;
     const uint GetSensorCount() const;
 
 private:

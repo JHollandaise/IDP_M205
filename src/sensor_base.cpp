@@ -1,8 +1,10 @@
+#include <robot_link.h>
+#include <robot_instr.h>
 #include "sensor_base.h"
 #include "global.h"
 
-Sensor::Sensor(const bool& STATUS):
-sensorOn(STATUS)
+Sensor::Sensor(const robot_link& rlink, const int& READ_NUMBER, const int& WRITE_NUMBER, const bool& STATUS):
+rlink(RLINK), READ_PORT(READ_NUMBER), WRITE_PORT(WRITE_NUMBER), sensorOn(STATUS)
 {}
 
 void Sensor::SetStatus(const bool& STATUS)
@@ -19,6 +21,4 @@ const bool& Sensor::GetStatus() const
 {   // Get current sensor status
     return sensorOn;
 }
-
-
 
