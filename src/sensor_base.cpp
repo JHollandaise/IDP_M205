@@ -1,9 +1,7 @@
 #include "sensor_base.h"
 #include "global.h"
 
-Sensor::Sensor(const bool& STATUS):
-sensorOn(STATUS)
-{}
+T
 
 void Sensor::SetStatus(const bool& STATUS)
 {   // Turn sensor on or off

@@ -131,6 +131,10 @@ const int Robot::FollowLine(const uint& strategy, const bool& stop) const
     return 6;
 }
 
+void Robot::StopAtStart() {
+
+}
+
 
 // Robot friend functions
 void Wait(const ufloat& time)

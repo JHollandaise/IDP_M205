@@ -66,16 +66,23 @@ public:
 
     const int CheckForTurntable() const;
 
+    const int TurntableAction(direction direction) const;
 
-
+    // function ensures the robot stops in the start box correctly
+    void StopAtStart();
 
     //----- Box interaction Methods ------//
 
     void PickUpBoxes(int num_boxes) const;
 
-    void DropBoxes(int drop_type) const;
+    void DropBoxes(bool bottom_box) const;
 
-    std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes);
+    MotionControl::box_type IdentifyBox();
+
+
+    // determines whether the robot is to stop at the start nodes
+    bool ReturnToStart = false;
+
 
 };
 

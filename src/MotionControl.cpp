@@ -45,7 +45,6 @@ MotionControl::GetAllPaths(const Node start, const Node end, std::vector<Node> p
     return succesful_paths;
 }
 
-
 std::vector<std::vector<MotionControl::Node>>
 MotionControl::GetAllPaths(const Node start, const Node end)
 {
@@ -76,36 +75,38 @@ std::vector<MotionControl::Node> MotionControl::GetShortestPath(std::vector<std:
     return shortest_path;
 }
 
-
-MotionControl::node_container MotionControl::GetShortestPath(MotionControl::Node start, MotionControl::Node end) {
+MotionControl::node_container MotionControl::GetShortestPath(MotionControl::Node start, MotionControl::Node end)
+{
     return GetShortestPath(GetAllPaths(start, end));
 }
 
-int MotionControl::ControlMotion(MotionControl::Node starting_node) {
+int MotionControl::ControlMotion(MotionControl::Node starting_node)
+{
 
-
+    //initial path to pick up
     current_node = starting_node;
+    Node end_node = P1;
 
     int i = 0;
-    while(i < 10) {
-        // go from starting pos / end of drop off and get path to pick up boxes
-        current_path = GetShortestPath(current_node, P1);
+    while() { //@TODO add functionality to check the timer is still okay
+        // go from (starting pos/pickup/drop off) to (pick up/next drop off)
+        current_path = GetShortestPath(current_node, end_node);
 
-        // get to P1
         for (auto node : current_path) {
-            Node_action(node);
-        };
+            // checks that robot will not repeat action at the node it just arrived at
+            if (node!=current_node) NodeAction(node);
+        }
 
-        // at P1 work out best path to drop of boxes that were picked up
-
-
-        // go from P1 to drop off all boxes
-        for (auto node : current_path) {
-            Node_action(node);
-        };
-
-
-        i++;
+        // at Pickup/drop off work out best path to drop of boxes that were picked up
+        // just picked up, get path from pick up to drop off
+        // or still have boxes to drop off
+        if (num_boxes > 0 )
+        {
+            // find where to drop next box
+            end_node = GetDropOff(held_box);
+        }
+        // otherwise pick up more boxes
+        else end_node = P1;
     }
 
     // @TODO Go back to Start
@@ -115,13 +116,15 @@ int MotionControl::ControlMotion(MotionControl::Node starting_node) {
     return 0;
 }
 
-void MotionControl::Node_action(MotionControl::Node node) {
+void MotionControl::NodeAction(MotionControl::Node node)
+{
+    current_node = node;
 
     if (node==D1 || node==D2 || node==D3 || node==D4 || node==D5 || node==D6)
     {
 
-        switch (node)
-        {
+        // operation at junction
+        switch (node) {
             case D1 :
             case D6 :
                 robot.JunctionAction(Robot::LEFT);
@@ -133,40 +136,192 @@ void MotionControl::Node_action(MotionControl::Node node) {
             case D3 :
             case D4 :
                 robot.JunctionAction(Robot::RIGHT);
+            default:
+                break;
         }
 
+        // follow up to box
         robot.FollowLine();
-        robot.DropBoxes(3);
 
+        // box actions
+        // drops off bottom box
+        robot.DropBoxes(true); //@TODO this func could also back up a little
+
+        box_count[node]++;
+        num_boxes--;
+
+        //@TODO add functionality to test the next box in the stack
+
+
+        // approach junction
         robot.TurnDegrees(180.0);
         robot.FollowLine();
 
-        switch (node)
-        {
-            case D1 :
-            case D6 :
-                robot.JunctionAction(Robot::RIGHT);
-                break;
-            case D5 :
-            case D2 :
-                robot.JunctionAction(Robot::STRAIGHT);
-                break;
-            case D3 :
-            case D4 :
-                robot.JunctionAction(Robot::LEFT);
-        }
     }
 
-    else if (node==P1)
+    else if (node==P1 || node == P2)
     {
-        robot.PickUpBoxes(3);
-        held_boxes = robot.IdentifyBoxes(3);
+        switch(node)
+        {
+            case P1:
+                // pick up whole stack of 3 boxes
+                robot.PickUpBoxes(3);
+
+                num_boxes = 3;
+                break;
+            case P2:
+                // pick up 1 box
+                robot.PickUpBoxes(1);
+
+                num_boxes = 1;
+                break;
+        }
+
+        // identify bottom box
+        held_box = robot.IdentifyBox();
+
         robot.TurnDegrees(180.0);
+        robot.FollowLine();
+    }
+
+    else if (node==Su || node==Sr || node==Sd || node==Sl)
+    {
+        // only stop at start node if we want it to
+        if (robot.ReturnToStart) robot.StopAtStart();
+    }
+
+    else if (node==P1Su || node== P1Sr || node== P2Su ||  node== P2Sl )
+    {
+        robot.FollowLine();
+
+        switch (node)
+        {
+            case P1Su:
+                robot.JunctionAction(Robot::LEFT);
+                break;
+            case P2Su:
+                robot.JunctionAction(Robot::RIGHT);
+                break;
+            case P1Sr:
+            case P2Sl:
+                robot.JunctionAction(Robot::STRAIGHT);
+                break;
+        }
+        robot.FollowLine();
+    }
+
+    else if (node==SlP1 || node== SrP2)
+    {
+        robot.FollowLine();
+    }
+
+    else if (node == SuDl || node == SuDr)
+    {
+        // follow up to turntable
+        robot.FollowLine();
+
+        // turn at turntable
+        switch (node)
+        {
+            case SuDl:
+                robot.TurntableAction(Robot::LEFT);
+                break;
+            case SuDr:
+                robot.TurntableAction(Robot::RIGHT);
+                break;
+        }
+
+        // follow up to drop off junction
+        robot.FollowLine();
+    }
+
+    else if (node == D1D2 || node == D1D3 || node == D2D3 || node == D2D1 || node == D3D1 || node == D3D2 ||
+            node == D4D5 || node == D4D6 || node == D5D6 || node == D5D4 || node == D6D4 || node == D6D5  ||
+            node == D1Dr || node == D2Dr || node == D3Dr ||
+            node == D4Dl || node == D5Dl || node == D6Dl ||
+            node == D1S || node == D2S || node == D3S ||
+            node == D4S || node == D5S || node == D6S)
+    {
+        // this only gets past the D junction and as such the DlDr transfer nodes require additional work
+        switch(node)
+        {
+
+            // turn left cases
+            case D1D2: case D2D3: case D3Dr: case D3S:
+            case D6D5: case D5D4: case D4Dl: case D4S:
+                robot.JunctionAction(Robot::LEFT);
+                break;
+
+            // Turn right cases
+            case D1Dr: case D1S: case D2D1: case D3D2:
+            case D6Dl: case D6S: case D5D6: case D4D5:
+                robot.JunctionAction(Robot::RIGHT);
+                break;
+
+            // straight on cases
+            case D1D3: case D2Dr: case D2S: case D3D1:
+            case D6D4: case D5Dl: case D5S: case D4D6:
+                robot.JunctionAction(Robot::STRAIGHT);
+                break;
+
+        }
+
+        // take up to Drop off or turntable junction
+        robot.FollowLine();
+
+        //actions after turntable
+
+        // straight on at turntable
+        if (node == D1Dr || node == D2Dr || node == D3Dr || node == D4Dl || node == D5Dl || node == D6Dl)
+        {
+            robot.TurntableAction(Robot::STRAIGHT);
+        }
+
+        // right at turntable
+        else if (node == D1S || node == D2S || node == D3S)
+        {
+            robot.TurntableAction(Robot::RIGHT);
+        }
+
+        // left at turntable
+        else if (node == D4S || node == D5S || node == D6S)
+        {
+            robot.TurntableAction(Robot::LEFT);
+        }
+
+        // follow across to D junction or down to S junction
+        robot.FollowLine();
+    }
+
+    else if(node == SSd || node == SSl || node == SSr)
+    {
+        // takes robot from after turntable to starting positions
+
+        // pass first junction
+        robot.FollowLine();
+
+        switch (node)
+        {
+            case SSd:
+                robot.JunctionAction(Robot::STRAIGHT);
+                break;
+            case SSr:
+                robot.JunctionAction(Robot::LEFT);
+                break;
+            case SSl:
+                robot.JunctionAction(Robot::RIGHT);
+                break;
+        }
+
+        // go to edge of bounding box
+        robot.FollowLine();
     }
 }
 
-
-
+MotionControl::Node MotionControl::GetDropOff(MotionControl::box_type box)
+{
+    return box_dests[box];
+}
 
 
 
