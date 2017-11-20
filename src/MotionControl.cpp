@@ -1,7 +1,6 @@
 #include <iostream>
 #include "MotionControl.h"
 
-
 std::vector<std::vector<MotionControl::Node>>
 MotionControl::GetAllPaths(const Node start, const Node end, std::vector<Node> path)
 {
@@ -18,12 +17,6 @@ MotionControl::GetAllPaths(const Node start, const Node end, std::vector<Node> p
         return succesful_paths;
     }
 
-    // if node does not exist
-    if (track_graph.find(start)==track_graph.end())
-    {
-        std::cout<<"node not in track";
-    }
-
     // look at all the nodes adjacent to current node
     for (auto adjacent_node : track_graph[start])
     {
@@ -35,7 +28,7 @@ MotionControl::GetAllPaths(const Node start, const Node end, std::vector<Node> p
             auto new_paths = GetAllPaths(adjacent_node, end, path);
 
             // add all successful paths
-            for (const auto current_path: new_paths)
+            for (const auto &current_path: new_paths)
             {
                 succesful_paths.push_back(current_path);
             }
@@ -322,10 +315,3 @@ MotionControl::Node MotionControl::GetDropOff(MotionControl::box_type box)
 {
     return box_dests[box];
 }
-
-
-
-
-
-
-

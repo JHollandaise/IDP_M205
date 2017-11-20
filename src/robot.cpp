@@ -61,7 +61,7 @@ void Robot::MoveDist(const float& distance, const bool& reverse) const
     uint speed = mSpeed
 
     const ufloat time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS))
-    
+
     if (reverse) MoveBackward(time, speed);
     else MoveForward(time, speed);
 }
@@ -76,7 +76,7 @@ const int Robot::FollowLine(const uint& strategy, const bool& stop) const
     const bool left_on = LSensorLeft.GetOutput();     // normally true
     const bool centre_on = LSensorCentre.GetOutput();     // normally false
     const bool right_on = LSensorRight.GetOutput();   // normally true
-    
+
     while (!stop)
     {
         // Continue current path
@@ -119,8 +119,8 @@ const int Robot::FollowLine(const uint& strategy, const bool& stop) const
                 break;
             }
         }
-        
-        else 
+
+        else
         {   // The robot has lost the line completely - log this
             // @TODO add error log entry here
             return 5;
@@ -144,4 +144,3 @@ void Wait(const ufloat& time)
     // Wait until the time has elapsed
     while (float(clock() - t1)/CLOCKS_PER_SEC < time) {};
 }
-
