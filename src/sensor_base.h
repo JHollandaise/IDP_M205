@@ -1,6 +1,8 @@
 #ifndef SENSOR_BASE_H
 #define SENSOR_BASE_H
 
+#include "global.h"
+
 // Sensor abstract base class
 
 class Sensor

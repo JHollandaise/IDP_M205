@@ -2,11 +2,9 @@
 #define MOTOR_H
 
 #include <robot_link.h>
+#include "global.h"
 #include "ErrorLog.h"
 
-// Useful constants
-#define MAX_MOTOR_SPEED 127
-#define DEFAULT_MOTOR_SPEED 50
 
 // Motor class declaration
 

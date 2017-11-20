@@ -6,6 +6,7 @@
 
 #include "motor.h"
 #include "light_sensor.h"
+#include "distance_sensor.h"
 #include "ErrorLog.h"
 #include "global.h"
 #include "MotionControl.h"
@@ -33,6 +34,9 @@ private:
     LightSensor LSensorLeft;
     LightSensor LSensorCentre;
     LightSensor LSensorRight;
+
+    // The distance sensor
+    DistanceSensor DSensor;
 
     ErrorLog& errorLog;
 
