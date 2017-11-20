@@ -12,11 +12,20 @@ robot_link rlink;    // Link to the robot
 int main ()
 {
 int val;                              // data from microprocessor
-if (!rlink.initialise (ROBOT_NUM)) { // setup the link
-  cout << "Cannot initialise link" << endl;
-  rlink.print_errs("  ");
-  return -1;
-}
+#ifdef __arm__
+    if (!rlink.initialise ()) { // setup the link
+  	cout << "Cannot initialise link" << endl;
+        rlink.print_errs("  ");
+        return -1;
+    }
+#else
+    if (!rlink.initialise (ROBOT_NUM)) { // setup the link
+  	cout << "Cannot initialise link" << endl;
+        rlink.print_errs("  ");
+        return -1;
+    }
+#endif
+
 val = rlink.request (TEST_INSTRUCTION); // send test instruction
 if (val == TEST_INSTRUCTION_RESULT) {   // check result
     // Start the timer

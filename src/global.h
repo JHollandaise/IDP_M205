@@ -29,6 +29,5 @@
 
 // Custom type definitions
 typedef unsigned int uint;
-typedef unsigned float ufloat;
 
 #endif

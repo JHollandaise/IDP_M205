@@ -1,6 +1,8 @@
 #ifndef SENSOR_BASE_H
 #define SENSOR_BASE_H
 
+#include <robot_instr.h>
+#include <robot_link.h>
 #include "global.h"
 
 // Sensor abstract base class
@@ -8,19 +10,20 @@
 class Sensor
 {
 public:
-    Sensor(const robot_link& RLINK, const int& READ_NUMBER, const int& WRITE_NUMBER, const bool& STATUS = 1);
-
     void SetStatus(const bool& STATUS);
     void Toggle();
 
-    virtual const int GetOutput() const = 0;
-    virtual void WriteInput() const = 0;
+    virtual const int GetOutput() = 0;
+    virtual void WriteInput() = 0;
     const bool GetStatus() const;
 
 protected:
+    
+    Sensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const request_instruction& WRITE_NUMBER, const bool& STATUS = 1);
+
     robot_link rlink;
-    const int& READ_PORT;
-    const int& WRITE_PORT;
+    const request_instruction& READ_PORT;
+    const request_instruction& WRITE_PORT;
     bool sensorOn;
 };
 
