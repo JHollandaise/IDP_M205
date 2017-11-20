@@ -133,8 +133,6 @@ const int Robot::FollowLine(const bool& stop) const
 }
 
 
-std::vector<MotionControl::boxes>
-
 // Robot friend functions
 void Wait(const ufloat& time)
 {   // Wait by the specified amount of time
