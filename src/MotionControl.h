@@ -12,6 +12,8 @@ class MotionControl {
 
 public:
 
+    MotionControl(Robot robot);
+
 
     // @TODO check whether public methods should actually be private
 
@@ -72,13 +74,11 @@ public:
     std::vector<node_container> GetAllPaths(Node start, Node end, node_container path);
     std::vector<node_container> GetAllPaths(Node start, Node end);
 
-    // shortest path from vector of node paths
-<<<<<<< HEAD
-    node_container GetShortestPath(std::vector<std::vector<Node> > paths);
-=======
-    node_container GetShortestPath(std::vector<std::vector<Node>> paths);
+
+
     // shortest path from node start to node end
->>>>>>> master
+    node_container GetShortestPath(std::vector<node_container>);
+
     node_container GetShortestPath(Node start, Node end);
 
 
@@ -94,7 +94,7 @@ public:
     };
     
     // ident box
-    std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes);
+    box_type IdentifyBox(int num_boxes);
 
     // returns the required destination node(s) of box
     Node GetDropOff(box_type box);
@@ -103,10 +103,6 @@ private:
 
     Robot robot;
 
-<<<<<<< HEAD
-    std::vector<box_type> held_boxes;
-=======
->>>>>>> master
 
     // box currently in bottom grip that has been identified
     box_type held_box;

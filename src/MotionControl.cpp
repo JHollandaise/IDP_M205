@@ -1,5 +1,11 @@
 #include <iostream>
 #include "MotionControl.h"
+#include <algorithm>
+
+MotionControl::MotionControl(Robot robot) : robot(robot) {
+}
+
+
 
 std::vector<std::vector<MotionControl::Node>>
 MotionControl::GetAllPaths(const Node start, const Node end, std::vector<Node> path)
@@ -18,10 +24,10 @@ MotionControl::GetAllPaths(const Node start, const Node end, std::vector<Node> p
     }
 
     // look at all the nodes adjacent to current node
-    for (auto adjacent_node : track_graph[start])
+    for (const auto adjacent_node : track_graph[start])
     {
         // check the adjacent node is not already in path (ie don't retrace)
-        if (std::find(path.begin(), path.end(), adjacent_node) == path.end() )
+        if ( std::find(path.begin(), path.end(), adjacent_node) == path.end() )
         {
             // make adjacent node current node and search paths from there
             // this is recursive and will end up returning all successful paths found to the depth 0 call
@@ -44,7 +50,7 @@ MotionControl::GetAllPaths(const Node start, const Node end)
     return GetAllPaths(start, end, {});
 }
 
-std::vector<MotionControl::Node> MotionControl::GetShortestPath(std::vector<std::vector<Node>> paths)
+std::vector<MotionControl::Node> MotionControl::GetShortestPath(std::vector<node_container> paths)
 {
     std::vector<Node> shortest_path {};
 
@@ -80,8 +86,8 @@ int MotionControl::ControlMotion(MotionControl::Node starting_node)
     current_node = starting_node;
     Node end_node = P1;
 
-    int i = 0;
-    while() { //@TODO add functionality to check the timer is still okay
+    int j = 0;
+    while(j<5) { //@TODO add functionality to check the timer is still okay
         // go from (starting pos/pickup/drop off) to (pick up/next drop off)
         current_path = GetShortestPath(current_node, end_node);
 
@@ -100,6 +106,8 @@ int MotionControl::ControlMotion(MotionControl::Node starting_node)
         }
         // otherwise pick up more boxes
         else end_node = P1;
+
+        j++;
     }
 
     // @TODO Go back to Start
@@ -168,10 +176,12 @@ void MotionControl::NodeAction(MotionControl::Node node)
 
                 num_boxes = 1;
                 break;
+            default:
+                break;
         }
 
         // identify bottom box
-        held_box = robot.IdentifyBox();
+        held_box = IdentifyBox(1);
 
         robot.TurnDegrees(180.0);
         robot.FollowLine();
@@ -199,6 +209,8 @@ void MotionControl::NodeAction(MotionControl::Node node)
             case P2Sl:
                 robot.JunctionAction(Robot::STRAIGHT);
                 break;
+            default:
+                break;
         }
         robot.FollowLine();
     }
@@ -208,13 +220,6 @@ void MotionControl::NodeAction(MotionControl::Node node)
         robot.FollowLine();
     }
 
-<<<<<<< HEAD
-std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes)
-{
-	return open;
-}
-
-=======
     else if (node == SuDl || node == SuDr)
     {
         // follow up to turntable
@@ -229,12 +234,13 @@ std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes)
             case SuDr:
                 robot.TurntableAction(Robot::RIGHT);
                 break;
+            default:
+                break;
         }
 
         // follow up to drop off junction
         robot.FollowLine();
     }
->>>>>>> master
 
     else if (node == D1D2 || node == D1D3 || node == D2D3 || node == D2D1 || node == D3D1 || node == D3D2 ||
             node == D4D5 || node == D4D6 || node == D5D6 || node == D5D4 || node == D6D4 || node == D6D5  ||
@@ -263,6 +269,8 @@ std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes)
             case D1D3: case D2Dr: case D2S: case D3D1:
             case D6D4: case D5Dl: case D5S: case D4D6:
                 robot.JunctionAction(Robot::STRAIGHT);
+                break;
+            default:
                 break;
 
         }
@@ -312,6 +320,8 @@ std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes)
             case SSl:
                 robot.JunctionAction(Robot::RIGHT);
                 break;
+            default:
+                break;
         }
 
         // go to edge of bounding box
@@ -322,4 +332,8 @@ std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes)
 MotionControl::Node MotionControl::GetDropOff(MotionControl::box_type box)
 {
     return box_dests[box];
+}
+
+MotionControl::box_type MotionControl::IdentifyBox(int num_boxes) {
+    return open;
 }
