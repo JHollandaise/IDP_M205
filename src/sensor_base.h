@@ -14,16 +14,14 @@ public:
     void Toggle();
 
     virtual const int GetOutput() = 0;
-    virtual void WriteInput() = 0;
-    const bool GetStatus() const;
+    const bool& GetStatus() const;
 
 protected:
     
-    Sensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const request_instruction& WRITE_NUMBER, const bool& STATUS = 1);
+    Sensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS = 1);
 
     robot_link rlink;
     const request_instruction& READ_PORT;
-    const request_instruction& WRITE_PORT;
     bool sensorOn;
 };
 

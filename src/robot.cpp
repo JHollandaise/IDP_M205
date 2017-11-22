@@ -1,3 +1,4 @@
+#include <iostream>
 #include <robot_instr.h>
 #include <robot_link.h>
 #include <ctime>
@@ -8,40 +9,43 @@
 #include "global.h"
 
 
+// Robot friend functions
+void Wait(const float& time)
+{   // Wait by the specified amount of time
+    clock_t t1 = clock();
+
+    // Wait until the time has elapsed
+    while (float(clock() - t1)/CLOCKS_PER_SEC < time) {};
+}
+
+// Robot member functions
+
 Robot::Robot(robot_link& RLINK):
-    rlink(RLINK)
+rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR))
 {    
     // Initialise the robot link
     #ifdef __arm__
         // Set up link on the ARM microprocessor
         if (!rlink.initialise ()) {
             rlink.print_errs("  ");
-        }
+        } else {
+			std::cout << "Connection successful" << std::endl;
+		}
     #else
         // Set up link from the computer
         if (!rlink.initialise (ROBOT_NUM)) {
             rlink.print_errs("  ");
-        }
+        } else {
+			std::cout << "Connection established" << std::endl;
+		}
     #endif
-
-    // Initialise the front motors
-    motorLeft = Motor(rlink, MOTOR_1, MOTOR_1_GO);
-    motorRight = Motor(rlink, MOTOR_2, MOTOR_2_GO);
 
     // Set motor directions - random for now
     motorLeftDir = true;
     motorRightDir = false;
-
-    // Initialise light sensors
-    LSensorLeft = LightSensor(rlink, READ_LEFT_LIGHT_SENSOR);
-    LSensorCentre = LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR);
-    LSensorRight = LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR);
-
-    // Initialise the distance sensor
-    DSensor = DistanceSensor(rlink, READ_DISTANCE_SENSOR);
 }
 
-void Robot::MoveForward(const uint& speed, const float& time) const
+void Robot::MoveForward(const uint& speed, const float& time)
 {   // Move the robot forward at the given speed for the given amount of time (or indefinitely if 'time' is 0.0)
 
     motorLeft.Rotate(speed, motorLeftDir);
@@ -54,7 +58,7 @@ void Robot::MoveForward(const uint& speed, const float& time) const
     }
 }
 
-void Robot::MoveBackward(const uint& speed, const float& time) const
+void Robot::MoveBackward(const uint& speed, const float& time)
 {   // Move the robot backward at the given speed for the given amount of time (or indefinitely if 'time' is 0.0)
     motorLeft.Rotate(speed, !motorLeftDir);
     motorRight.Rotate(speed, !motorRightDir);
@@ -66,31 +70,28 @@ void Robot::MoveBackward(const uint& speed, const float& time) const
     }
 }
 
-void Robot::StopMoving() const
+void Robot::StopMoving()
 {   // Stops the front motors
     motorLeft.Rotate(0, motorLeftDir);
     motorRight.Rotate(0, motorRightDir);
 }
 
-void Robot::MoveDist(const float& distance, const bool& reverse) const
+void Robot::MoveDist(const float& distance, const bool& reverse)
 {   // Move the robot forward by the specified distance (in m)
     // @TODO check how loading affects RPM
     uint speed = mSpeed;
 
-    const
-    float time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS));
-    
-    const float time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS))
+    const float time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS));
 
     if (reverse) MoveBackward(time, speed);
     else MoveForward(time, speed);
 }
 
-void Robot::TurnDegrees(const float& angle) const
+void Robot::TurnDegrees(const float& angle)
 {   // Turns the robot **clockwise** through the specified angle
     int speed_left = 0;
     int speed_right = 0;
-    ufloat velocity = 0;
+    float velocity = 0;
 
     // Express angle in radians and use the wheel separation as the radius of curvature to determine the arc length of the curve taken
     const uint arc_length = PI*abs(angle)/180 * WHEEL_SEPARATION;
@@ -103,14 +104,14 @@ void Robot::TurnDegrees(const float& angle) const
     } else if (angle < 0) {
         // Drive the right wheel faster than the left for an amount of time
         speed_right = MAX_MOTOR_SPEED;
-        velocity = (WHEEL_DIAMETER/2) * (speed_right * SPEED_TO_RPM * RPM_TORADS);
+        velocity = (WHEEL_DIAMETER/2) * (speed_right * SPEED_TO_RPM * RPM_TO_RADS);
     }         
 
     const float time = arc_length/velocity;
 
     // Make the turn
-    motorLeft.Rotate(left_speed, motorLeftDir);
-    motorRight.Rotate(right_speed, motorRightDir);
+    motorLeft.Rotate(speed_left, motorLeftDir);
+    motorRight.Rotate(speed_right, motorRightDir);
 
     Wait(time);
 
@@ -118,7 +119,7 @@ void Robot::TurnDegrees(const float& angle) const
     MoveForward(mSpeed);
 }
 
-const int Robot::FollowLine() const
+const int Robot::FollowLine()
 {   // Line-following algorithm using straddling extreme sensors and a central sensor on the line - sensors are off if they are on the line
     const bool left_on = LSensorLeft.GetOutput();     // normally true
     const bool centre_on = LSensorCentre.GetOutput();     // normally false
@@ -158,18 +159,8 @@ int Robot::StartJunctionAction(Robot::direction)
     return 0;
 }
 
-int Robot::JunctionAction(Robot::direction) const 
+int Robot::JunctionAction(Robot::direction) 
 {
     return 0;
-}
-
-
-// Robot friend functions
-void Wait(const float& time)
-{   // Wait by the specified amount of time
-    clock_t t1;
-
-    // Wait until the time has elapsed
-    while (float(clock() - t1)/CLOCKS_PER_SEC < time) {};
 }
 

@@ -1,8 +1,8 @@
 // Program to test the line-following algorithm
 
 #include "../src/robot.h"
-#include <robot_instr>
-#include <robot_link>
+#include <robot_instr.h>
+#include <robot_link.h>
 
 int main()
 {

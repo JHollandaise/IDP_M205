@@ -1,3 +1,3 @@
-# Automatically generated Makefile for arm
-time_test.arm : time_test.cpp 
-	 arm-linux-gnueabi-g++ -ansi -Wall -g -I/usr/arm-unknown-linux-gnueabi/include -I/export/teach/1BRobot -L/usr/arm-unknown-linux-gnueabi/lib time_test.cpp -o time_test.arm -lrobot
+# Automatically generated Makefile
+drive_20cm : drive_20cm.cpp  ../src/robot.h
+	 g++ -ansi -Wall -g -I/export/teach/1BRobot -L/export/teach/1BRobot drive_20cm.cpp -o drive_20cm -lrobot

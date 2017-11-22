@@ -3,12 +3,9 @@
 #include "sensor_base.h"
 #include "global.h"
 
-<<<<<<< HEAD
-Sensor::Sensor(const robot_link& rlink, const request_instruction& READ_NUMBER, const request_instruction& WRITE_NUMBER, const bool& STATUS):
-rlink(RLINK), READ_PORT(READ_NUMBER), WRITE_PORT(WRITE_NUMBER), sensorOn(STATUS)
+Sensor::Sensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS):
+rlink(RLINK), READ_PORT(READ_NUMBER), sensorOn(STATUS)
 {}
-=======
->>>>>>> master
 
 void Sensor::SetStatus(const bool& STATUS)
 {   // Turn sensor on or off
