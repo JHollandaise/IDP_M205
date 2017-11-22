@@ -8,8 +8,6 @@
 #include "light_sensor.h"
 #include "distance_sensor.h"
 #include "global.h"
-// #include "MotionControl.h"
-
 
 class Robot
 {
@@ -38,7 +36,7 @@ private:
     DistanceSensor DSensor;
 
 
-public:    
+public:
     friend void Wait(const float& time);
 
     enum direction {
@@ -78,14 +76,9 @@ public:
 
     void DropBoxes(bool bottom_box);
 
-<<<<<<< HEAD
-=======
-    // MotionControl::box_type IdentifyBox();
-
->>>>>>> development
 
     // determines whether the robot is to stop at the start nodes
-    // bool ReturnToStart = false;
+    bool ReturnToStart = false;
 
 };
 

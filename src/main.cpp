@@ -3,7 +3,7 @@
 #include <robot_link.h>
 #include "robot.h"
 
-//#include "MotionControl.h"
+#include "MotionControl.h"
 int main()
 {
 	robot_link rlink;
@@ -11,14 +11,7 @@ int main()
 	
 	robot.MoveForward(50, 10.0);
 	
-    // MotionControl controller;
+    MotionControl controller(robot);
 
-<<<<<<< HEAD
 }
-=======
-    //auto a = controller.GetAllPaths(MotionControl::P1,MotionControl::Sl);
-    //auto b = controller.GetShortestPath(a);
-    //int c = 4;
-    return 0;
-}
->>>>>>> development
+

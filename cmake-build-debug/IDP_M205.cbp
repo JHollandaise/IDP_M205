@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="IDP_M205"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/josephholland/eng_home/IDP_M205/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/josephholland/eng_home/IDP_M205/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/josephholland/eng_home/IDP_M205/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="IDP_M205">
+				<Option output="/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/IDP_M205" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/josephholland/eng_home/IDP_M205/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../lib/clang/7.0.2/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 IDP_M205"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="IDP_M205/fast">
+				<Option output="/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/IDP_M205" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/josephholland/eng_home/IDP_M205/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../lib/clang/7.0.2/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 IDP_M205/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/josephholland/eng_home/IDP_M205/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/MotionControl.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/MotionControl.h">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/distance_sensor.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/distance_sensor.h">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/global.h">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/light_sensor.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/light_sensor.h">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/main.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/motor.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/motor.h">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/robot.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/robot.h">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/sensor_base.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/src/sensor_base.h">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/testing/drive_20cm.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/testing/init_test.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/testing/sensor_simulation.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/testing/test_main.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/testing/time_test.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_home/IDP_M205/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -164,3 +164,19 @@ int Robot::JunctionAction(Robot::direction)
     return 0;
 }
 
+void Robot::DropBoxes(bool bottom_box) {
+
+}
+
+void Robot::PickUpBoxes(int num_boxes) {
+
+}
+
+const int Robot::TurntableAction(Robot::direction direction) {
+    return 0;
+}
+
+const int Robot::CheckForTurntable() {
+    return 0;
+}
+
