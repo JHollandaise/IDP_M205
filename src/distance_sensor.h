@@ -1,4 +1,4 @@
-#ifndef DISTANCE_SENSOR_H
+fndef DISTANCE_SENSOR_H
 #define DISTANCE_SENSOR_H
 
 #include "sensor_base.h"
@@ -6,9 +6,9 @@
 
 class DistanceSensor : public Sensor
 {
-public:
+ public:
     DistanceSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS = 1);
-   
+    
     const int GetOutput();
     void WriteInput();
 

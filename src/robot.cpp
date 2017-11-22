@@ -14,7 +14,7 @@ Robot::Robot(const robot_link& rlink):
     // Initialise the front motors
     motorLeft = Motor(rlink, MOTOR_1, MOTOR_1_GO);
     motorRight = Motor(rlink, MOTOR_2, MOTOR_2_GO);
-    
+
     // Set motor directions - random for now
     motorLeftDir = true;
     motorRightDir = false;
@@ -64,15 +64,21 @@ void Robot::MoveDist(const float& distance, const bool& reverse) const
     // @TODO check how loading affects RPM
     uint speed = mSpeed;
 
+<<<<<<< HEAD
     const 
     float time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS));
     
+=======
+    const ufloat time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS))
+
+>>>>>>> master
     if (reverse) MoveBackward(time, speed);
     else MoveForward(time, speed);
 }
 
 void Robot::TurnDegrees(const float& angle) const
 {   // Turns the robot **clockwise** through the specified angle
+<<<<<<< HEAD
     int speed_left = 0;
     int speed_right = 0;
     ufloat velocity = 0;
@@ -101,6 +107,9 @@ void Robot::TurnDegrees(const float& angle) const
 
     // Turn finished - drive motors at the same speed again
     MoveForward(mSpeed);
+=======
+
+>>>>>>> master
 }
 
 const int Robot::FollowLine(const bool& stop) const
@@ -108,7 +117,7 @@ const int Robot::FollowLine(const bool& stop) const
     const bool left_on = LSensorLeft.GetOutput();     // normally true
     const bool centre_on = LSensorCentre.GetOutput();     // normally false
     const bool right_on = LSensorRight.GetOutput();   // normally true
-    
+
     while (!stop)
     {
         // Continue current path
@@ -121,8 +130,8 @@ const int Robot::FollowLine(const bool& stop) const
         {   // The robot has hit a junction - a decision has to be made here
             return 0;
         }
-        
-        else 
+
+        else
         {   // The robot has lost the line completely - log this
             // @TODO add error log entry here
             return -1;
@@ -131,6 +140,21 @@ const int Robot::FollowLine(const bool& stop) const
 
     // The algorithm was overriden manually
     return 1;
+}
+
+void Robot::StopAtStart() {
+
+}
+
+int Robot::StartJunctionAction(Robot::direction) {
+    return 0;
+}
+
+int Robot::JunctionAction(Robot::direction) const {
+    while()
+
+
+    return 0;
 }
 
 
@@ -142,4 +166,3 @@ void Wait(const ufloat& time)
     // Wait until the time has elapsed
     while (float(clock() - t1)/CLOCKS_PER_SEC < time) {};
 }
-

@@ -49,6 +49,12 @@ public:
     Robot(const robot_link& rlink);
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> master
     //--------- Motion Methods -----------//
 
     void MoveForward(const uint& speed, const float& time = 0.0) const;
@@ -60,20 +66,33 @@ public:
 
     const int FollowLine(const bool& stop = false) const;
 
-    void  JunctionAction(direction direction) const;
+    int  JunctionAction(direction) const;
+
+    int StartJunctionAction(direction);
 
     const int CheckForTurntable() const;
 
+    const int TurntableAction(direction direction) const;
 
-
+    // function ensures the robot stops in the start box correctly
+    void StopAtStart();
 
     //----- Box interaction Methods ------//
 
     void PickUpBoxes(int num_boxes) const;
 
-    void DropBoxes(int drop_type) const;
+    void DropBoxes(bool bottom_box) const;
 
+    MotionControl::box_type IdentifyBox();
+
+
+    // determines whether the robot is to stop at the start nodes
+    bool ReturnToStart = false;
+
+<<<<<<< HEAD
     
+=======
+>>>>>>> master
 
 };
 
