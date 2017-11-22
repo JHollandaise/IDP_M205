@@ -64,21 +64,17 @@ void Robot::MoveDist(const float& distance, const bool& reverse) const
     // @TODO check how loading affects RPM
     uint speed = mSpeed;
 
-<<<<<<< HEAD
-    const 
+    const
     float time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS));
     
-=======
     const ufloat time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS))
 
->>>>>>> master
     if (reverse) MoveBackward(time, speed);
     else MoveForward(time, speed);
 }
 
 void Robot::TurnDegrees(const float& angle) const
 {   // Turns the robot **clockwise** through the specified angle
-<<<<<<< HEAD
     int speed_left = 0;
     int speed_right = 0;
     ufloat velocity = 0;
@@ -107,9 +103,6 @@ void Robot::TurnDegrees(const float& angle) const
 
     // Turn finished - drive motors at the same speed again
     MoveForward(mSpeed);
-=======
-
->>>>>>> master
 }
 
 const int Robot::FollowLine(const bool& stop) const
