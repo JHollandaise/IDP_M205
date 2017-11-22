@@ -3,8 +3,6 @@
 
 #include <robot_link.h>
 #include "global.h"
-#include "ErrorLog.h"
-
 
 // Motor class declaration
 
@@ -20,8 +18,6 @@ private:
     int motorNumber;
     int motorGo;
     const robot_link rlink;
-
-    ErrorLog& errorLog;
 
 };
 

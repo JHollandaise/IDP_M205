@@ -7,7 +7,6 @@
 #include "motor.h"
 #include "light_sensor.h"
 #include "distance_sensor.h"
-#include "ErrorLog.h"
 #include "global.h"
 #include "MotionControl.h"
 
@@ -38,8 +37,6 @@ private:
     // The distance sensor
     DistanceSensor DSensor;
 
-    ErrorLog& errorLog;
-
 
 public:
 
@@ -54,11 +51,11 @@ public:
 
     //--------- Motion Methods -----------//
 
-    void MoveForward(const uint& speed, const ufloat& time = 0.0) const;
-    void MoveBackward(const uint& speed, const ufloat& time = 0.0) const;
+    void MoveForward(const uint& speed, const float& time = 0.0) const;
+    void MoveBackward(const uint& speed, const float& time = 0.0) const;
     void StopMoving() const;
 
-    void MoveDist(const ufloat& distance, const bool& reverse = false) const;
+    void MoveDist(const float& distance, const bool& reverse = false) const;
     void TurnDegrees(const float& angle) const;
 
     const int FollowLine(const bool& stop = false) const;
@@ -76,7 +73,7 @@ public:
 
     void DropBoxes(int drop_type) const;
 
-    std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes);
+    
 
 };
 

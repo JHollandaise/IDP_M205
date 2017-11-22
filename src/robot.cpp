@@ -28,7 +28,7 @@ Robot::Robot(const robot_link& rlink):
     DSensor = DistanceSensor(rlink, READ_DISTANCE_SENSOR);
 }
 
-void Robot::MoveForward(const uint& speed, const ufloat& time) const
+void Robot::MoveForward(const uint& speed, const float& time) const
 {   // Move the robot forward at the given speed for the given amount of time (or indefinitely if 'time' is 0.0)
 
     motorLeft.Rotate(speed, motorLeftDir);
@@ -41,7 +41,7 @@ void Robot::MoveForward(const uint& speed, const ufloat& time) const
     }
 }
 
-void Robot::MoveBackward(const uint& speed, const ufloat& time) const
+void Robot::MoveBackward(const uint& speed, const float& time) const
 {   // Move the robot backward at the given speed for the given amount of time (or indefinitely if 'time' is 0.0)
     motorLeft.Rotate(speed, !motorLeftDir);
     motorRight.Rotate(speed, !motorRightDir);
@@ -64,7 +64,8 @@ void Robot::MoveDist(const float& distance, const bool& reverse) const
     // @TODO check how loading affects RPM
     uint speed = mSpeed;
 
-    const ufloat time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS));
+    const 
+    float time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS));
     
     if (reverse) MoveBackward(time, speed);
     else MoveForward(time, speed);

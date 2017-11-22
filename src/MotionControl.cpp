@@ -165,6 +165,11 @@ void MotionControl::Node_action(MotionControl::Node node) {
     }
 }
 
+std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes)
+{
+	return open;
+}
+
 
 
 

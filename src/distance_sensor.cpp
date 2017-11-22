@@ -5,8 +5,8 @@
 
 // Distance sensor definitions
 
-DistanceSensor::DistanceSensor(const robot_link& RLINK, const int& READ_NUMBER, const bool& STATUS):
-Sensor(RLINK, READ_NUMBER, -1, STATUS)
+DistanceSensor::DistanceSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS):
+Sensor(RLINK, READ_NUMBER, READ_NUMBER, STATUS)
 {}
 
 const int DistanceSensor::GetOutput()
@@ -14,7 +14,7 @@ const int DistanceSensor::GetOutput()
     return rlink.request(READ_PORT);
 } 
 
-void DistanceSensor::WriteInput() const
+void DistanceSensor::WriteInput()
 {   /* Do nothing - the distance sensor cannot be written to */ }
 
 const bool DistanceSensor::ObjectNearby(const int& THRESHOLD)

@@ -15,9 +15,6 @@ public:
 
     // @TODO check whether public methods should actually be private
 
-    // motion control and determination
-    int ControlMotion(Node starting_node);
-
 
     // points used to control the movement of the robot
     enum Node  {
@@ -39,6 +36,9 @@ public:
         TrTl,TrSd
     };
 
+    // motion control and determination
+    int ControlMotion(Node starting_node);
+	
     typedef std::vector<Node> node_container;
 
     // describes all of the types of box
@@ -66,7 +66,7 @@ public:
     std::vector<node_container> GetAllPaths(Node start, Node end);
 
     // shortest path from vector of node paths
-    node_container GetShortestPath(std::vector<std::vector<Node>> paths);
+    node_container GetShortestPath(std::vector<std::vector<Node> > paths);
     node_container GetShortestPath(Node start, Node end);
 
 
@@ -80,13 +80,16 @@ public:
             {D5, 0},
             {D6, 0}
     };
+    
+    // ident box
+    std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes);
 
 private:
 
     //@TODO uncomment this
     Robot robot;
 
-    std::vector<box_type> held_boxes {};
+    std::vector<box_type> held_boxes;
 
     Node current_node;
 

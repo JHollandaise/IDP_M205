@@ -6,18 +6,18 @@
 // Light sensor definitions
 
 LightSensor::LightSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS):
-Sensor(RLINK, READ_NUMBER, -1, STATUS)
+Sensor(RLINK, READ_NUMBER, READ_NUMBER, STATUS)
 {
     sensorCount += 1;
 }
 
-const bool LightSensor::GetOutput() 
+const int LightSensor::GetOutput() 
 {   // Reads the sensor output through a robot_link request
     if (rlink.request(READ_PORT) < LIGHT_SENSOR_THRESHOLD) return true;
     else return false;
 } 
 
-void LightSensor::WriteInput() const
+void LightSensor::WriteInput()
 {   /* Do nothing - the light sensor cannot be written to */ }
 
 const uint LightSensor::GetSensorCount() const
