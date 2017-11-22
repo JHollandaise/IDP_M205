@@ -64,7 +64,9 @@ public:
 
     const int FollowLine(const uint& strategy = 0, const bool& stop = false) const;
 
-    void  JunctionAction(direction direction) const;
+    int  JunctionAction(direction) const;
+
+    int StartJunctionAction(direction);
 
     const int CheckForTurntable() const;
 

@@ -13,7 +13,7 @@ Robot::Robot(const robot_link& rlink):
     // Initialise the front motors
     motorLeft = Motor(rlink, MOTOR_1, MOTOR_1_GO);
     motorRight = Motor(rlink, MOTOR_2, MOTOR_2_GO);
-    
+
     // Set motor directions - random for now
     motorLeftDir = true;
     motorRightDir = false;
@@ -68,7 +68,7 @@ void Robot::MoveDist(const float& distance, const bool& reverse) const
 
 void Robot::TurnDegrees(const float& angle) const
 {   // Turns the robot **clockwise** through the specified angle
-            
+
 }
 
 const int Robot::FollowLine(const uint& strategy, const bool& stop) const
@@ -133,6 +133,17 @@ const int Robot::FollowLine(const uint& strategy, const bool& stop) const
 
 void Robot::StopAtStart() {
 
+}
+
+int Robot::StartJunctionAction(Robot::direction) {
+    return 0;
+}
+
+int Robot::JunctionAction(Robot::direction) const {
+    while()
+
+
+    return 0;
 }
 
 
