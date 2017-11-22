@@ -46,15 +46,9 @@ public:
         STRAIGHT
     };
 
-    Robot(const robot_link& rlink);
+    Robot(robot_link& RLINK);
 
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> master
     //--------- Motion Methods -----------//
 
     void MoveForward(const uint& speed, const float& time = 0.0) const;
@@ -88,11 +82,6 @@ public:
 
     // determines whether the robot is to stop at the start nodes
     bool ReturnToStart = false;
-
-<<<<<<< HEAD
-    
-=======
->>>>>>> master
 
 };
 

@@ -22,6 +22,7 @@
 #define READ_CENTRE_LIGHT_SENSOR READ_PORT_1
 #define READ_RIGHT_LIGHT_SENSOR READ_PORT_2
 #define READ_DISTANCE_SENSOR READ_PORT_3
+#define ROBOT_NUM 8
 
 // Constants used in conversion
 #define SPEED_TO_RPM 0.0

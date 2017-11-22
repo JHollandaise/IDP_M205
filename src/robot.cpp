@@ -8,9 +8,23 @@
 #include "global.h"
 
 
-Robot::Robot(const robot_link& rlink):
-    rlink(rlink)
+Robot::Robot(robot_link& RLINK):
+    rlink(RLINK)
 {
+    
+    // Initialise the robot link
+    #ifdef __arm__
+        // Set up link on the ARM microprocessor
+        if (!rlink.initialise ()) {
+            rlink.print_errs("  ");
+        }
+    #else
+        // Set up link from the computer
+        if (!rlink.initialise (ROBOT_NUM)) {
+            rlink.print_errs("  ");
+        }
+    #endif
+
     // Initialise the front motors
     motorLeft = Motor(rlink, MOTOR_1, MOTOR_1_GO);
     motorRight = Motor(rlink, MOTOR_2, MOTOR_2_GO);
