@@ -38,7 +38,8 @@ private:
     DistanceSensor DSensor;
 
 
-public:
+public:    
+    friend void Wait(const float& time);
 
     enum direction {
         LEFT,
@@ -58,7 +59,7 @@ public:
     void MoveDist(const float& distance, const bool& reverse = false) const;
     void TurnDegrees(const float& angle) const;
 
-    const int FollowLine(const bool& stop = false) const;
+    const int FollowLine() const;
 
     int  JunctionAction(direction) const;
 

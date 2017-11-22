@@ -10,8 +10,7 @@
 
 Robot::Robot(robot_link& RLINK):
     rlink(RLINK)
-{
-    
+{    
     // Initialise the robot link
     #ifdef __arm__
         // Set up link on the ARM microprocessor
@@ -74,14 +73,14 @@ void Robot::StopMoving() const
 }
 
 void Robot::MoveDist(const float& distance, const bool& reverse) const
-{   // Move the robot forward by the specified distance
+{   // Move the robot forward by the specified distance (in m)
     // @TODO check how loading affects RPM
     uint speed = mSpeed;
 
     const
     float time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS));
     
-    const ufloat time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS))
+    const float time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RADS))
 
     if (reverse) MoveBackward(time, speed);
     else MoveForward(time, speed);
@@ -107,7 +106,7 @@ void Robot::TurnDegrees(const float& angle) const
         velocity = (WHEEL_DIAMETER/2) * (speed_right * SPEED_TO_RPM * RPM_TORADS);
     }         
 
-    const ufloat time = arc_length/velocity;
+    const float time = arc_length/velocity;
 
     // Make the turn
     motorLeft.Rotate(left_speed, motorLeftDir);
@@ -119,13 +118,13 @@ void Robot::TurnDegrees(const float& angle) const
     MoveForward(mSpeed);
 }
 
-const int Robot::FollowLine(const bool& stop) const
+const int Robot::FollowLine() const
 {   // Line-following algorithm using straddling extreme sensors and a central sensor on the line - sensors are off if they are on the line
     const bool left_on = LSensorLeft.GetOutput();     // normally true
     const bool centre_on = LSensorCentre.GetOutput();     // normally false
     const bool right_on = LSensorRight.GetOutput();   // normally true
 
-    while (!stop)
+    while (true)
     {
         // Continue current path
         if (left_on && !centre_on && right_on) {}
@@ -145,31 +144,32 @@ const int Robot::FollowLine(const bool& stop) const
         }
     }
 
-    // The algorithm was overriden manually
-    return 1;
+    // Code should never reach this line
+    return -2;
 }
 
-void Robot::StopAtStart() {
+void Robot::StopAtStart() 
+{
 
 }
 
-int Robot::StartJunctionAction(Robot::direction) {
+int Robot::StartJunctionAction(Robot::direction) 
+{
     return 0;
 }
 
-int Robot::JunctionAction(Robot::direction) const {
-    while()
-
-
+int Robot::JunctionAction(Robot::direction) const 
+{
     return 0;
 }
 
 
 // Robot friend functions
-void Wait(const ufloat& time)
+void Wait(const float& time)
 {   // Wait by the specified amount of time
     clock_t t1;
 
     // Wait until the time has elapsed
     while (float(clock() - t1)/CLOCKS_PER_SEC < time) {};
 }
+
