@@ -1,4 +1,4 @@
-fndef DISTANCE_SENSOR_H
+#ifndef DISTANCE_SENSOR_H
 #define DISTANCE_SENSOR_H
 
 #include "sensor_base.h"

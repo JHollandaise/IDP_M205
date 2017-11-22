@@ -1,5 +1,82 @@
 #include <iostream>
 #include "MotionControl.h"
+#include "robot.h"
+
+
+MotionControl::MotionControl()
+{
+	const robot_link rlink;
+	
+	robot = Robot::Robot(rlink);
+	
+	 MotionControl::box_dests  {
+		{open,        D1},
+		{short_circ,  D1},
+		{res1,        D2},
+		{res2,        D4},
+		{res3,        D3}
+    };
+    
+    MotionControl::box_count  {
+		{D1, 0},
+		{D2, 0},
+		{D3, 0},
+		{D4, 0},
+		{D5, 0},
+		{D6, 0}
+    };
+    
+    MotionControl::track_graph  {
+		{P1,{P1Su,P1Sr}},
+		{P2,{P2Su,P2Sl}},
+
+		{Sl,{SlP1}},
+		{Sr,{SrP2}},
+		{Su,{SuDl,SuDr}},
+
+		{D1,{D1Dr,D1S,D1D2,D1D3}},
+		{D2,{D2Dr,D2S,D2D1,D2D3}},
+		{D3,{D3Dr,D3S,D3D1,D3D2}},
+
+		{D4,{D4Dl,D4S,D4D5,D4D6}},
+		{D5,{D5Dl,D5S,D5D4,D5D6}},
+		{D6,{D6Dl,D6S,D6D4,D6D5}},
+
+		{P1Su,{Su}},
+		{P1Sr,{Sr}},
+		{P2Sl,{Sl}},
+		{P2Su,{Su}},
+
+		{SlP1,{P1}},
+
+		{SrP2,{P2}},
+
+		{SuDl,{D1,D2,D3}},
+		{SuDr,{D4,D5,D6}},
+
+		{D1Dr,{D4,D5,D6}},
+		{D2Dr,{D4,D5,D6}},
+		{D3Dr,{D4,D5,D6}},
+
+		{D4Dl,{D1,D2,D3}},
+		{D5Dl,{D1,D2,D3}},
+		{D6Dl,{D1,D2,D3}},
+
+		{D1S,{SSl,SSd,SSr}},
+		{D2S,{SSl,SSd,SSr}},
+		{D3S,{SSl,SSd,SSr}},
+		{D4S,{SSl,SSd,SSr}},
+		{D5S,{SSl,SSd,SSr}},
+		{D6S,{SSl,SSd,SSr}},
+
+
+		{SSl,{Sl}},
+		{SSd,{Sd}},
+		{SSr,{Sr}}
+    };
+}
+
+
 
 std::vector<std::vector<MotionControl::Node>>
 MotionControl::GetAllPaths(const Node start, const Node end, std::vector<Node> path)
@@ -208,13 +285,11 @@ void MotionControl::NodeAction(MotionControl::Node node)
         robot.FollowLine();
     }
 
-<<<<<<< HEAD
 std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes)
 {
 	return open;
 }
 
-=======
     else if (node == SuDl || node == SuDr)
     {
         // follow up to turntable
@@ -234,7 +309,7 @@ std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes)
         // follow up to drop off junction
         robot.FollowLine();
     }
->>>>>>> master
+
 
     else if (node == D1D2 || node == D1D3 || node == D2D3 || node == D2D1 || node == D3D1 || node == D3D2 ||
             node == D4D5 || node == D4D6 || node == D5D6 || node == D5D4 || node == D6D4 || node == D6D5  ||
@@ -322,4 +397,9 @@ std::vector<MotionControl::box_type> IdentifyBoxes(int num_boxes)
 MotionControl::Node MotionControl::GetDropOff(MotionControl::box_type box)
 {
     return box_dests[box];
+}
+
+box_type MotionControl::IdentifyBox()
+{
+	return MotionControl::open;
 }

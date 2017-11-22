@@ -47,14 +47,6 @@ public:
     };
 
     Robot(const robot_link& rlink);
-
-
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> master
     //--------- Motion Methods -----------//
 
     void MoveForward(const uint& speed, const float& time = 0.0) const;
@@ -83,16 +75,11 @@ public:
 
     void DropBoxes(bool bottom_box) const;
 
-    MotionControl::box_type IdentifyBox();
-
+  
 
     // determines whether the robot is to stop at the start nodes
     bool ReturnToStart = false;
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> master
 
 };
 
