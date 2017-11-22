@@ -9,11 +9,6 @@ public:
     LightSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS = 1);
    
     const int GetOutput(); 
-    void WriteInput();
-    const uint GetSensorCount() const;
-
-private:
-    static uint sensorCount;
 }; 
 
 #endif

@@ -1,6 +1,7 @@
 #ifndef MOTOR_H
 #define MOTOR_H
 
+#include <robot_instr.h>
 #include <robot_link.h>
 #include "global.h"
 
@@ -9,15 +10,15 @@
 class Motor
 {
  public:
-    Motor(const robot_link rlink, const int& motor_number, const int& motor_go_number);
+    Motor(robot_link& RLINK, const request_instruction& motor_number, const command_instruction& motor_go_number);
 
-    void Rotate(bool direction) const;
-    void Rotate(const unsigned int &speed, bool direction) const;
+    void Rotate(bool direction);
+    void Rotate(const unsigned int &speed, bool direction);
 
 private:
-    int motorNumber;
-    int motorGo;
-    const robot_link rlink;
+    request_instruction motorNumber;
+    command_instruction motorGo;
+    robot_link rlink;
 
 };
 

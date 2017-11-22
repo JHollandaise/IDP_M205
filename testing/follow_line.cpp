@@ -1,4 +1,4 @@
-// Program to test robot movement
+// Program to test the line-following algorithm
 
 #include "../src/robot.h"
 #include <robot_instr.h>
@@ -9,9 +9,7 @@ int main()
     robot_link rlink;
     Robot robot(rlink);
 
-    robot.MoveDist(0.2, false);    
+    std::cout << robot.FollowLine() << std::endl;
 
     return 0;
 }
-
-
