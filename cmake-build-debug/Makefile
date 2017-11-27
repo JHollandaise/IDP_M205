@@ -150,6 +150,33 @@ src/MotionControl.cpp.s:
 	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/MotionControl.cpp.s
 .PHONY : src/MotionControl.cpp.s
 
+src/actuator.o: src/actuator.cpp.o
+
+.PHONY : src/actuator.o
+
+# target to build an object file
+src/actuator.cpp.o:
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/actuator.cpp.o
+.PHONY : src/actuator.cpp.o
+
+src/actuator.i: src/actuator.cpp.i
+
+.PHONY : src/actuator.i
+
+# target to preprocess a source file
+src/actuator.cpp.i:
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/actuator.cpp.i
+.PHONY : src/actuator.cpp.i
+
+src/actuator.s: src/actuator.cpp.s
+
+.PHONY : src/actuator.s
+
+# target to generate assembly for a file
+src/actuator.cpp.s:
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/actuator.cpp.s
+.PHONY : src/actuator.cpp.s
+
 src/distance_sensor.o: src/distance_sensor.cpp.o
 
 .PHONY : src/distance_sensor.o
@@ -203,6 +230,33 @@ src/global.s: src/global.cpp.s
 src/global.cpp.s:
 	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/global.cpp.s
 .PHONY : src/global.cpp.s
+
+src/led.o: src/led.cpp.o
+
+.PHONY : src/led.o
+
+# target to build an object file
+src/led.cpp.o:
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/led.cpp.o
+.PHONY : src/led.cpp.o
+
+src/led.i: src/led.cpp.i
+
+.PHONY : src/led.i
+
+# target to preprocess a source file
+src/led.cpp.i:
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/led.cpp.i
+.PHONY : src/led.cpp.i
+
+src/led.s: src/led.cpp.s
+
+.PHONY : src/led.s
+
+# target to generate assembly for a file
+src/led.cpp.s:
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/led.cpp.s
+.PHONY : src/led.cpp.s
 
 src/light_sensor.o: src/light_sensor.cpp.o
 
@@ -486,12 +540,18 @@ help:
 	@echo "... src/MotionControl.o"
 	@echo "... src/MotionControl.i"
 	@echo "... src/MotionControl.s"
+	@echo "... src/actuator.o"
+	@echo "... src/actuator.i"
+	@echo "... src/actuator.s"
 	@echo "... src/distance_sensor.o"
 	@echo "... src/distance_sensor.i"
 	@echo "... src/distance_sensor.s"
 	@echo "... src/global.o"
 	@echo "... src/global.i"
 	@echo "... src/global.s"
+	@echo "... src/led.o"
+	@echo "... src/led.i"
+	@echo "... src/led.s"
 	@echo "... src/light_sensor.o"
 	@echo "... src/light_sensor.i"
 	@echo "... src/light_sensor.s"

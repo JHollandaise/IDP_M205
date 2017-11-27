@@ -6,6 +6,8 @@
 
 #include "motor.h"
 #include "robot.h"
+#include "actuator.h"
+#include "led.h"
 #include "global.h"
 
 
@@ -14,7 +16,7 @@
 // Robot member functions
 
 Robot::Robot(robot_link& RLINK):
-rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuator(rlink), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
+rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuator(Actuator(rlink)), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
 {   
 	/* 
     // Initialise the robot link
@@ -163,7 +165,7 @@ int Robot::StartJunctionAction(Robot::direction)
     return 0;
 }
 
-int Robot::JunctionAction(Robot::direction, Robot::junction_type)
+int Robot::JunctionAction(Robot::direction)
 {
 
     return 0;

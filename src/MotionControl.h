@@ -1,6 +1,8 @@
 #ifndef MOTIONCONTROL_H
 #define MOTIONCONTROL_H
 
+#include <robot_instr.h>
+#include <robot_link.h>
 
 #include <string>
 #include <vector>
@@ -12,8 +14,10 @@ class MotionControl {
 
 public:
 
-    
-	MotionControl(Robot robot);
+
+    MotionControl(robot_link& rlink);
+
+    Robot robot;
 
 
     // @TODO check whether public methods should actually be private
@@ -101,8 +105,6 @@ public:
     Node GetDropOff(box_type box);
 
 private:
-
-    Robot robot;
 
 
     // box currently in bottom grip that has been identified

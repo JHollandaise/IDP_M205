@@ -11,7 +11,7 @@
 class Actuator
 {
  public:
-    Actuator(robot_link& RLINK);
+    explicit Actuator(robot_link& RLINK);
     void PistonDown();
     void PistonUp();
 

@@ -1,11 +1,15 @@
 #include <iostream>
 #include "MotionControl.h"
+#include "robot.h"
 #include <algorithm>
 
-MotionControl::MotionControl(Robot robot) : Robot(robot)
+#include <robot_instr.h>
+#include <robot_link.h>
+
+
+MotionControl::MotionControl(robot_link& rlink): robot(rlink)
 {
 }
-
 
 
 std::vector<std::vector<MotionControl::Node>>
@@ -156,7 +160,7 @@ void MotionControl::NodeAction(MotionControl::Node node)
 
         // drop top two boxes
         robot.DropBoxes(false);
-        robot.PickUpBoxes(2);
+        robot.PickUpBoxes();
 
         // identify current box
         held_box = IdentifyBox(1);
@@ -172,13 +176,13 @@ void MotionControl::NodeAction(MotionControl::Node node)
         {
             case P1:
                 // pick up whole stack of 3 boxes
-                robot.PickUpBoxes(3);
+                robot.PickUpBoxes();
 
                 num_boxes = 3;
                 break;
             case P2:
                 // pick up 1 box
-                robot.PickUpBoxes(1);
+                robot.PickUpBoxes();
 
                 num_boxes = 1;
                 break;
@@ -343,3 +347,5 @@ MotionControl::Node MotionControl::GetDropOff(MotionControl::box_type box)
 MotionControl::box_type MotionControl::IdentifyBox(int num_boxes) {
     return open;
 }
+
+

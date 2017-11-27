@@ -88,6 +88,12 @@
 		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/MotionControl.h">
 			<Option target="IDP_M205"/>
 		</Unit>
+		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/actuator.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/actuator.h">
+			<Option target="IDP_M205"/>
+		</Unit>
 		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/distance_sensor.cpp">
 			<Option target="IDP_M205"/>
 		</Unit>
@@ -98,6 +104,12 @@
 			<Option target="IDP_M205"/>
 		</Unit>
 		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/global.h">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/led.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
+		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/led.h">
 			<Option target="IDP_M205"/>
 		</Unit>
 		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/light_sensor.cpp">

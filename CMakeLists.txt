@@ -18,6 +18,10 @@ set(SOURCE_FILES
         src/robot.h
         src/sensor_base.cpp
         src/sensor_base.h
+        src/actuator.cpp
+        src/actuator.h
+        src/led.cpp
+        src/led.h
         testing/drive_20cm.cpp
         testing/init_test.cpp
         testing/sensor_simulation.cpp

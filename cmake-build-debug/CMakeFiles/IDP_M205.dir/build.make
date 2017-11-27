@@ -225,9 +225,57 @@ CMakeFiles/IDP_M205.dir/src/sensor_base.cpp.o.provides: CMakeFiles/IDP_M205.dir/
 CMakeFiles/IDP_M205.dir/src/sensor_base.cpp.o.provides.build: CMakeFiles/IDP_M205.dir/src/sensor_base.cpp.o
 
 
+CMakeFiles/IDP_M205.dir/src/actuator.cpp.o: CMakeFiles/IDP_M205.dir/flags.make
+CMakeFiles/IDP_M205.dir/src/actuator.cpp.o: ../src/actuator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/IDP_M205.dir/src/actuator.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/IDP_M205.dir/src/actuator.cpp.o -c /Users/josephholland/eng_doc/IDP_M205/src/actuator.cpp
+
+CMakeFiles/IDP_M205.dir/src/actuator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/IDP_M205.dir/src/actuator.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/josephholland/eng_doc/IDP_M205/src/actuator.cpp > CMakeFiles/IDP_M205.dir/src/actuator.cpp.i
+
+CMakeFiles/IDP_M205.dir/src/actuator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/IDP_M205.dir/src/actuator.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/josephholland/eng_doc/IDP_M205/src/actuator.cpp -o CMakeFiles/IDP_M205.dir/src/actuator.cpp.s
+
+CMakeFiles/IDP_M205.dir/src/actuator.cpp.o.requires:
+
+.PHONY : CMakeFiles/IDP_M205.dir/src/actuator.cpp.o.requires
+
+CMakeFiles/IDP_M205.dir/src/actuator.cpp.o.provides: CMakeFiles/IDP_M205.dir/src/actuator.cpp.o.requires
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/actuator.cpp.o.provides.build
+.PHONY : CMakeFiles/IDP_M205.dir/src/actuator.cpp.o.provides
+
+CMakeFiles/IDP_M205.dir/src/actuator.cpp.o.provides.build: CMakeFiles/IDP_M205.dir/src/actuator.cpp.o
+
+
+CMakeFiles/IDP_M205.dir/src/led.cpp.o: CMakeFiles/IDP_M205.dir/flags.make
+CMakeFiles/IDP_M205.dir/src/led.cpp.o: ../src/led.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/IDP_M205.dir/src/led.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/IDP_M205.dir/src/led.cpp.o -c /Users/josephholland/eng_doc/IDP_M205/src/led.cpp
+
+CMakeFiles/IDP_M205.dir/src/led.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/IDP_M205.dir/src/led.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/josephholland/eng_doc/IDP_M205/src/led.cpp > CMakeFiles/IDP_M205.dir/src/led.cpp.i
+
+CMakeFiles/IDP_M205.dir/src/led.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/IDP_M205.dir/src/led.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/josephholland/eng_doc/IDP_M205/src/led.cpp -o CMakeFiles/IDP_M205.dir/src/led.cpp.s
+
+CMakeFiles/IDP_M205.dir/src/led.cpp.o.requires:
+
+.PHONY : CMakeFiles/IDP_M205.dir/src/led.cpp.o.requires
+
+CMakeFiles/IDP_M205.dir/src/led.cpp.o.provides: CMakeFiles/IDP_M205.dir/src/led.cpp.o.requires
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/led.cpp.o.provides.build
+.PHONY : CMakeFiles/IDP_M205.dir/src/led.cpp.o.provides
+
+CMakeFiles/IDP_M205.dir/src/led.cpp.o.provides.build: CMakeFiles/IDP_M205.dir/src/led.cpp.o
+
+
 CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.o: CMakeFiles/IDP_M205.dir/flags.make
 CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.o: ../testing/drive_20cm.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.o -c /Users/josephholland/eng_doc/IDP_M205/testing/drive_20cm.cpp
 
 CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.i: cmake_force
@@ -251,7 +299,7 @@ CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.o.provides.build: CMakeFiles/IDP_
 
 CMakeFiles/IDP_M205.dir/testing/init_test.cpp.o: CMakeFiles/IDP_M205.dir/flags.make
 CMakeFiles/IDP_M205.dir/testing/init_test.cpp.o: ../testing/init_test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/IDP_M205.dir/testing/init_test.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/IDP_M205.dir/testing/init_test.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/IDP_M205.dir/testing/init_test.cpp.o -c /Users/josephholland/eng_doc/IDP_M205/testing/init_test.cpp
 
 CMakeFiles/IDP_M205.dir/testing/init_test.cpp.i: cmake_force
@@ -275,7 +323,7 @@ CMakeFiles/IDP_M205.dir/testing/init_test.cpp.o.provides.build: CMakeFiles/IDP_M
 
 CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o: CMakeFiles/IDP_M205.dir/flags.make
 CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o: ../testing/sensor_simulation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o -c /Users/josephholland/eng_doc/IDP_M205/testing/sensor_simulation.cpp
 
 CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.i: cmake_force
@@ -299,7 +347,7 @@ CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o.provides.build: CMakeFil
 
 CMakeFiles/IDP_M205.dir/testing/test_main.cpp.o: CMakeFiles/IDP_M205.dir/flags.make
 CMakeFiles/IDP_M205.dir/testing/test_main.cpp.o: ../testing/test_main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/IDP_M205.dir/testing/test_main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/IDP_M205.dir/testing/test_main.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/IDP_M205.dir/testing/test_main.cpp.o -c /Users/josephholland/eng_doc/IDP_M205/testing/test_main.cpp
 
 CMakeFiles/IDP_M205.dir/testing/test_main.cpp.i: cmake_force
@@ -323,7 +371,7 @@ CMakeFiles/IDP_M205.dir/testing/test_main.cpp.o.provides.build: CMakeFiles/IDP_M
 
 CMakeFiles/IDP_M205.dir/testing/time_test.cpp.o: CMakeFiles/IDP_M205.dir/flags.make
 CMakeFiles/IDP_M205.dir/testing/time_test.cpp.o: ../testing/time_test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/IDP_M205.dir/testing/time_test.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/IDP_M205.dir/testing/time_test.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/IDP_M205.dir/testing/time_test.cpp.o -c /Users/josephholland/eng_doc/IDP_M205/testing/time_test.cpp
 
 CMakeFiles/IDP_M205.dir/testing/time_test.cpp.i: cmake_force
@@ -347,7 +395,7 @@ CMakeFiles/IDP_M205.dir/testing/time_test.cpp.o.provides.build: CMakeFiles/IDP_M
 
 CMakeFiles/IDP_M205.dir/src/global.cpp.o: CMakeFiles/IDP_M205.dir/flags.make
 CMakeFiles/IDP_M205.dir/src/global.cpp.o: ../src/global.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/IDP_M205.dir/src/global.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/IDP_M205.dir/src/global.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/IDP_M205.dir/src/global.cpp.o -c /Users/josephholland/eng_doc/IDP_M205/src/global.cpp
 
 CMakeFiles/IDP_M205.dir/src/global.cpp.i: cmake_force
@@ -378,6 +426,8 @@ IDP_M205_OBJECTS = \
 "CMakeFiles/IDP_M205.dir/src/motor.cpp.o" \
 "CMakeFiles/IDP_M205.dir/src/robot.cpp.o" \
 "CMakeFiles/IDP_M205.dir/src/sensor_base.cpp.o" \
+"CMakeFiles/IDP_M205.dir/src/actuator.cpp.o" \
+"CMakeFiles/IDP_M205.dir/src/led.cpp.o" \
 "CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.o" \
 "CMakeFiles/IDP_M205.dir/testing/init_test.cpp.o" \
 "CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o" \
@@ -395,6 +445,8 @@ IDP_M205: CMakeFiles/IDP_M205.dir/src/MotionControl.cpp.o
 IDP_M205: CMakeFiles/IDP_M205.dir/src/motor.cpp.o
 IDP_M205: CMakeFiles/IDP_M205.dir/src/robot.cpp.o
 IDP_M205: CMakeFiles/IDP_M205.dir/src/sensor_base.cpp.o
+IDP_M205: CMakeFiles/IDP_M205.dir/src/actuator.cpp.o
+IDP_M205: CMakeFiles/IDP_M205.dir/src/led.cpp.o
 IDP_M205: CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.o
 IDP_M205: CMakeFiles/IDP_M205.dir/testing/init_test.cpp.o
 IDP_M205: CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o
@@ -403,7 +455,7 @@ IDP_M205: CMakeFiles/IDP_M205.dir/testing/time_test.cpp.o
 IDP_M205: CMakeFiles/IDP_M205.dir/src/global.cpp.o
 IDP_M205: CMakeFiles/IDP_M205.dir/build.make
 IDP_M205: CMakeFiles/IDP_M205.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable IDP_M205"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/josephholland/eng_doc/IDP_M205/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable IDP_M205"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/IDP_M205.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -418,6 +470,8 @@ CMakeFiles/IDP_M205.dir/requires: CMakeFiles/IDP_M205.dir/src/MotionControl.cpp.
 CMakeFiles/IDP_M205.dir/requires: CMakeFiles/IDP_M205.dir/src/motor.cpp.o.requires
 CMakeFiles/IDP_M205.dir/requires: CMakeFiles/IDP_M205.dir/src/robot.cpp.o.requires
 CMakeFiles/IDP_M205.dir/requires: CMakeFiles/IDP_M205.dir/src/sensor_base.cpp.o.requires
+CMakeFiles/IDP_M205.dir/requires: CMakeFiles/IDP_M205.dir/src/actuator.cpp.o.requires
+CMakeFiles/IDP_M205.dir/requires: CMakeFiles/IDP_M205.dir/src/led.cpp.o.requires
 CMakeFiles/IDP_M205.dir/requires: CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.o.requires
 CMakeFiles/IDP_M205.dir/requires: CMakeFiles/IDP_M205.dir/testing/init_test.cpp.o.requires
 CMakeFiles/IDP_M205.dir/requires: CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o.requires

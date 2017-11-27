@@ -3,6 +3,7 @@
 #include <robot_link.h>
 #include "robot.h"
 #include "motor.h"
+#include "MotionControl.h"
 
 int main()
 {
@@ -29,11 +30,10 @@ int main()
     std::cout << "Port 1: " << rlink.request(READ_PORT_1) << std::endl;
     std::cout << "Port 2: " << rlink.request(READ_PORT_2) << std::endl;
     
-    Robot robot(rlink);
-    int val = robot.FollowLine();
+    MotionControl controller(rlink);
+    int val = controller.robot.FollowLine();
 	
 	std::cout << "Exited with code " << val << std::endl;
-	
 	
     //MotionControl controller();
 
