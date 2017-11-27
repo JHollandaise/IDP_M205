@@ -9,11 +9,7 @@
 #include "distance_sensor.h"
 #include "actuator.h"
 #include "global.h"
-<<<<<<< HEAD
-=======
-#include "MotionControl.h"
-
->>>>>>> development
+#include "led.h"
 
 class Robot
 {

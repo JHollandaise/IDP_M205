@@ -15,7 +15,8 @@
 
 Robot::Robot(robot_link& RLINK):
 rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuator(rlink), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
-{    
+{   
+	/* 
     // Initialise the robot link
     #ifdef __arm__
         // Set up link on the ARM microprocessor
@@ -32,6 +33,7 @@ rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rli
 			std::cout << "Connection established" << std::endl;
 		}
     #endif
+    */
 
     // Set motor directions - random for now
     motorLeftDir = true;
@@ -131,7 +133,7 @@ const int Robot::FollowLine()
 
         if (box_nearby)
         {   // The robot is near a box - a decision has to be made here
-            return 0
+            return 0;
         } else if (left_on && !centre_on && right_on) {} // Continue path 
         // Turn left
         else if (!left_on && right_on) TurnDegrees(-DEFAULT_ROBOT_TURN_ANGLE);

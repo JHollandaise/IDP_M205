@@ -2,7 +2,7 @@
 #include "MotionControl.h"
 #include <algorithm>
 
-MotionControl::MotionControl(Robot robot) : robot(robot)
+MotionControl::MotionControl(Robot robot) : Robot(robot)
 {
 }
 

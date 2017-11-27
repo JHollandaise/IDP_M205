@@ -15,9 +15,10 @@ class LED
     void TurnOff();
     void Toggle();
 
-    LED::STATUS GetStatus() const;
+	enum STATUS {ON, OFF};
 
-    enum STATUS {ON, OFF};
+    STATUS GetStatus() const;
+    
 
 private:
     robot_link rlink;
@@ -26,3 +27,4 @@ private:
 };
 
 
+#endif

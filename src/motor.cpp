@@ -44,14 +44,14 @@ void Motor::RotateAngle(const float& angle, const int& speed)
     
     if (angle > 0)
     {
-        Motor.Rotate(speed, true)
+        Rotate(speed, true);
     } else {
-        Motor.Rotate(speed, false)
+        Rotate(speed, false);
     }
 
     // Wait for the amount of time required to complete the rotation
     Wait(time);
 
-    Motor.Rotate(0, true);
+    Rotate(0, true);
 }
 

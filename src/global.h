@@ -47,6 +47,6 @@
 // Custom type definitions
 typedef unsigned int uint;
 
-
+void Wait(const float&);
 #endif
 

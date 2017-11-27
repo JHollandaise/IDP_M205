@@ -12,7 +12,8 @@ class MotionControl {
 
 public:
 
-    explicit MotionControl(Robot robot);
+    
+	MotionControl(Robot robot);
 
 
     // @TODO check whether public methods should actually be private

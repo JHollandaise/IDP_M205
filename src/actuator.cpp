@@ -1,7 +1,7 @@
 #include <robot_instr.h>
 #include <robot_link.h>
-#include "motor.h"
 #include "global.h"
+#include "actuator.h"
 
 // Class constructor
 Actuator::Actuator(robot_link& RLINK):
@@ -10,11 +10,11 @@ Actuator::Actuator(robot_link& RLINK):
 
 void Actuator::PistonDown()
 {   // Release pneumatic pressure in the actuator
-    rlink.command();
+    //rlink.command();
 }
 
 void Actuator::PistonUp()
 {   // Pressurise actuator
-    rlink.command();
+    //rlink.command();
 }
 

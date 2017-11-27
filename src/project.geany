@@ -1,0 +1,26 @@
+[project]
+name=main
+base_path=/homes/hjhb2/IDP_M205/src
+make_in_base_path=true
+description=1B IDP
+run_cmd=./main
+ 
+[files]
+current_page=1
+FILE_NAME_0=0;C++;0;16;1;1;0;actuator.cpp;0
+FILE_NAME_1=0;C++;0;16;1;1;0;distance_sensor.cpp;0
+FILE_NAME_2=0;C++;0;16;1;1;0;global.cpp;0
+FILE_NAME_3=0;C++;0;16;1;1;0;led.cpp;0
+FILE_NAME_4=0;C++;0;16;1;1;0;light_sensor.cpp;0
+FILE_NAME_5=0;C++;0;16;1;1;0;main.cpp;0
+FILE_NAME_6=0;C++;0;16;1;1;0;MotionControl.cpp;0
+FILE_NAME_7=0;C++;0;16;1;1;0;motor.cpp;0
+FILE_NAME_8=0;C++;0;16;1;1;0;robot.cpp;0
+FILE_NAME_9=0;C++;0;16;1;1;0;sensor_base.cpp;0
+ 
+[indentation]
+indent_width=4
+indent_type=1
+indent_hard_tab_width=8
+detect_indent=false
+indent_mode=2
