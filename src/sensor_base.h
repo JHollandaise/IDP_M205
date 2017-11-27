@@ -13,7 +13,7 @@ public:
     void SetStatus(const bool& STATUS);
     void Toggle();
 
-    virtual const int GetOutput() = 0;
+    virtual const bool GetOutput() = 0;
     const bool& GetStatus() const;
 
 protected:

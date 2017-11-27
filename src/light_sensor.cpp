@@ -9,9 +9,8 @@ LightSensor::LightSensor(const robot_link& RLINK, const request_instruction& REA
 Sensor(RLINK, READ_NUMBER, STATUS)
 {}
 
-const int LightSensor::GetOutput() 
+const bool LightSensor::GetOutput()
 {   // Reads the sensor output through a robot_link request
-    if (rlink.request(READ_PORT) < LIGHT_SENSOR_THRESHOLD) return true;
-    else return false;
-} 
+    return  rlink.request(READ_PORT) < LIGHT_SENSOR_THRESHOLD;
+}
 

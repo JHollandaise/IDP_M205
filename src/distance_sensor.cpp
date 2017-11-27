@@ -9,7 +9,7 @@ DistanceSensor::DistanceSensor(const robot_link& RLINK, const request_instructio
 Sensor(RLINK, READ_NUMBER, STATUS)
 {}
 
-const int DistanceSensor::GetOutput()
+const bool DistanceSensor::GetOutput()
 {   // Reads the sensor output through a robot_link request
     return rlink.request(READ_PORT);
 } 

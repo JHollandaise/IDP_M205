@@ -8,7 +8,7 @@ class LightSensor : public Sensor
 public:
     LightSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS = 1);
    
-    const int GetOutput(); 
+    const bool GetOutput();
 }; 
 
 #endif
