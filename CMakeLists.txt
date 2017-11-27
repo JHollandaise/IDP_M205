@@ -22,6 +22,6 @@ set(SOURCE_FILES
         testing/init_test.cpp
         testing/sensor_simulation.cpp
         testing/test_main.cpp
-        testing/time_test.cpp)
+        testing/time_test.cpp src/global.cpp)
 
 add_executable(IDP_M205 ${SOURCE_FILES})

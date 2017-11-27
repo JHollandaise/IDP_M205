@@ -54,7 +54,7 @@ private:
     LED LED3;
 
 public:
-    friend void Wait(const float& time);
+
 
     enum direction {
         LEFT,
@@ -68,6 +68,12 @@ public:
         res1,
         res2,
         res3
+    };
+
+    enum junction_type {
+        start,
+        standard,
+        dropoff
     };
 
     Robot(robot_link& RLINK);
@@ -84,7 +90,7 @@ public:
 
     const int FollowLine();
 
-    int  JunctionAction(direction);
+    int  JunctionAction(direction, junction_type);
 
     int StartJunctionAction(direction);
 
@@ -97,15 +103,12 @@ public:
 
     //----- Box interaction Methods ------//
 
-    void PickUpBoxes(int num_boxes);
+    void PickUpBoxes();
 
     void DropBoxes(bool bottom_box);
 
-<<<<<<< HEAD
-=======
-    Robot::box_type IdentifyBox();
 
->>>>>>> development
+    Robot::box_type IdentifyBox();
 
     // determines whether the robot is to stop at the start nodes
     bool ReturnToStart = false;

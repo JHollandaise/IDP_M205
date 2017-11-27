@@ -9,14 +9,7 @@
 #include "global.h"
 
 
-// Robot friend functions
-void Wait(const float& time)
-{   // Wait by the specified amount of time
-    clock_t t1 = clock();
 
-    // Wait until the time has elapsed
-    while (float(clock() - t1)/CLOCKS_PER_SEC < time) {};
-}
 
 // Robot member functions
 
@@ -168,18 +161,10 @@ int Robot::StartJunctionAction(Robot::direction)
     return 0;
 }
 
-int Robot::JunctionAction(Robot::direction) 
+int Robot::JunctionAction(Robot::direction, Robot::junction_type)
 {
+
     return 0;
-}
-
-<<<<<<< HEAD
-void Robot::DropBoxes(bool bottom_box) {
-
-}
-
-void Robot::PickUpBoxes(int num_boxes) {
-
 }
 
 const int Robot::TurntableAction(Robot::direction direction) {
@@ -188,8 +173,9 @@ const int Robot::TurntableAction(Robot::direction direction) {
 
 const int Robot::CheckForTurntable() {
     return 0;
-=======
-void Robot::PickupBoxes(int num_boxes)
+}
+
+void Robot::PickUpBoxes()
 {   // Pick up a box by pressurising the actuators and raising the chassis
       actuator.PistonUp();
       motorChassis.RotateAngle(CHASSIS_LIFT_ANGLE);
@@ -207,7 +193,7 @@ Robot::box_type Robot::IdentifyBox()
     // @TODO: talk to electrical about the identification details    
     box_type box;
 
-    swith(box)
+    switch(box)
     {   // Light LEDs in different patterns (depending on box type)
     case open:
         LED1.TurnOn();
@@ -240,10 +226,10 @@ Robot::box_type Robot::IdentifyBox()
         break;
 
     default:
-        // Error log here
+        //@TODO Error log here
+        break;
     }
 
     return box;
->>>>>>> development
 }
 

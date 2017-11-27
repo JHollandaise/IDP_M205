@@ -11,6 +11,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o"
   "CMakeFiles/IDP_M205.dir/testing/test_main.cpp.o"
   "CMakeFiles/IDP_M205.dir/testing/time_test.cpp.o"
+  "CMakeFiles/IDP_M205.dir/src/global.cpp.o"
   "IDP_M205.pdb"
   "IDP_M205"
 )

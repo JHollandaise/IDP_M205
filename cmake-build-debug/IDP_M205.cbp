@@ -94,6 +94,9 @@
 		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/distance_sensor.h">
 			<Option target="IDP_M205"/>
 		</Unit>
+		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/global.cpp">
+			<Option target="IDP_M205"/>
+		</Unit>
 		<Unit filename="/Users/josephholland/eng_doc/IDP_M205/src/global.h">
 			<Option target="IDP_M205"/>
 		</Unit>

@@ -177,6 +177,33 @@ src/distance_sensor.cpp.s:
 	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/distance_sensor.cpp.s
 .PHONY : src/distance_sensor.cpp.s
 
+src/global.o: src/global.cpp.o
+
+.PHONY : src/global.o
+
+# target to build an object file
+src/global.cpp.o:
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/global.cpp.o
+.PHONY : src/global.cpp.o
+
+src/global.i: src/global.cpp.i
+
+.PHONY : src/global.i
+
+# target to preprocess a source file
+src/global.cpp.i:
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/global.cpp.i
+.PHONY : src/global.cpp.i
+
+src/global.s: src/global.cpp.s
+
+.PHONY : src/global.s
+
+# target to generate assembly for a file
+src/global.cpp.s:
+	$(MAKE) -f CMakeFiles/IDP_M205.dir/build.make CMakeFiles/IDP_M205.dir/src/global.cpp.s
+.PHONY : src/global.cpp.s
+
 src/light_sensor.o: src/light_sensor.cpp.o
 
 .PHONY : src/light_sensor.o
@@ -462,6 +489,9 @@ help:
 	@echo "... src/distance_sensor.o"
 	@echo "... src/distance_sensor.i"
 	@echo "... src/distance_sensor.s"
+	@echo "... src/global.o"
+	@echo "... src/global.i"
+	@echo "... src/global.s"
 	@echo "... src/light_sensor.o"
 	@echo "... src/light_sensor.i"
 	@echo "... src/light_sensor.s"
