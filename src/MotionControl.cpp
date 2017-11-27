@@ -147,18 +147,23 @@ void MotionControl::NodeAction(MotionControl::Node node)
 
         // box actions
         // drops off bottom box
-        robot.DropBoxes(true); //@TODO this func could also back up a little
+        robot.DropBoxes(true);
 
         box_count[node]++;
         num_boxes--;
 
-        //@TODO add functionality to test the next box in the stack
+        //@TODO roll robot back out of the way of the box just dropped
 
+        // drop top two boxes
+        robot.DropBoxes(false);
+        robot.PickUpBoxes(2);
+
+        // identify current box
+        held_box = IdentifyBox(1);
 
         // approach junction
         robot.TurnDegrees(180.0);
         robot.FollowLine();
-
     }
 
     else if (node==P1 || node == P2)
