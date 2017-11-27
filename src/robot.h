@@ -7,7 +7,13 @@
 #include "motor.h"
 #include "light_sensor.h"
 #include "distance_sensor.h"
+#include "actuator.h"
 #include "global.h"
+<<<<<<< HEAD
+=======
+#include "MotionControl.h"
+
+>>>>>>> development
 
 class Robot
 {
@@ -19,10 +25,17 @@ private:
     Motor motorLeft;
     Motor motorRight;
 
+    // The motor used to lift the chassis
+    Motor motorChassis;
+
+    // The actuator used to clamp boxes
+    Actuator actuator;
+
     // Determines what direction is "forward" for a given motor
     // True if **clockwise** is forward
     bool motorLeftDir;
     bool motorRightDir;
+    bool motorChassisDir;
 
     // Speed the robot is currently travelling at
     int mSpeed;
@@ -34,7 +47,11 @@ private:
 
     // The distance sensor
     DistanceSensor DSensor;
-
+    
+    // The LEDs used for box detection
+    LED LED1;
+    LED LED2;
+    LED LED3;
 
 public:
     friend void Wait(const float& time);
@@ -43,6 +60,14 @@ public:
         LEFT,
         RIGHT,
         STRAIGHT
+    };
+
+    enum box_type {
+        open,
+        short_circ,
+        res1,
+        res2,
+        res3
     };
 
     Robot(robot_link& RLINK);
@@ -76,6 +101,11 @@ public:
 
     void DropBoxes(bool bottom_box);
 
+<<<<<<< HEAD
+=======
+    Robot::box_type IdentifyBox();
+
+>>>>>>> development
 
     // determines whether the robot is to stop at the start nodes
     bool ReturnToStart = false;

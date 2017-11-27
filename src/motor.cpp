@@ -37,3 +37,21 @@ void Motor::Rotate(const unsigned int &speed, bool direction)
         rlink.command(motorGo, motor_speed);
     }
 }
+
+void Motor::RotateAngle(const float& angle, const int& speed)
+{   // Rotate motor through the specified angle (in degrees) at the given speed
+   const float time = (angle * DEG_TO_RAD) / (speed * SPEED_TO_RPM * RPM_TO_RAD_PER_S);     
+    
+    if (angle > 0)
+    {
+        Motor.Rotate(speed, true)
+    } else {
+        Motor.Rotate(speed, false)
+    }
+
+    // Wait for the amount of time required to complete the rotation
+    Wait(time);
+
+    Motor.Rotate(0, true);
+}
+

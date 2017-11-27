@@ -10,10 +10,13 @@
 class Motor
 {
  public:
-    Motor(robot_link& RLINK, const request_instruction& motor_number, const command_instruction& motor_go_number);
+    friend void Wait(const float& time);
 
+    Motor(robot_link& RLINK, const request_instruction& motor_number, const command_instruction& motor_go_number);
+    
     void Rotate(bool direction);
     void Rotate(const unsigned int &speed, bool direction);
+    void RotateAngle(const float& angle, const int& speed = MAX_MOTOR_SPEED);
 
 private:
     request_instruction motorNumber;
