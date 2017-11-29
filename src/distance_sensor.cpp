@@ -5,8 +5,8 @@
 
 // Distance sensor definitions
 
-DistanceSensor::DistanceSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS):
-Sensor(RLINK, READ_NUMBER, STATUS)
+DistanceSensor::DistanceSensor(const robot_link& RLINK, const command_instruction& PORT_NUMBER, const bool& STATUS):
+Sensor(RLINK, READ_PORT, STATUS)
 {}
 
 const int DistanceSensor::GetOutput()

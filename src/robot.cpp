@@ -16,12 +16,8 @@
 // Robot member functions
 
 Robot::Robot(robot_link& RLINK):
-<<<<<<< HEAD
 rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuatorTop(rlink, WRITE_PORT_5), actuatorBottom(rlink, WRITE_PORT_5), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
 {
-=======
-rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuator(Actuator(rlink)), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR, 1)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR, 2)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR, 4)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
-{   
 	/* 
     // Initialise the robot link
     #ifdef __arm__
@@ -41,7 +37,6 @@ rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rli
     #endif
     */
 
->>>>>>> 8827f00e3aa43ae6da96d9d814bcb3b83cf919d5
     // Set motor directions - random for now
     motorLeftDir = true;
     motorRightDir = false;
@@ -209,7 +204,6 @@ void Robot::DropBoxes(const bool& bottom_box)
 }
 
 Robot::box_type Robot::IdentifyBox()
-<<<<<<< HEAD
 {   // Identify the box type by passing a current through the box circuitry and matching the response time to known circuit reponse times. Light the correct LEDs to show the box type
     int val = rlink.request(READ_PORT_5);
 
@@ -224,11 +218,7 @@ Robot::box_type Robot::IdentifyBox()
     {}
 
     int time = watch.stop();
-=======
-{   // Identify the box type by passing a current through the box circuitry and matching the voltage signature to pre-defined cases. Light the correct LEDs to show the box type
 
-    // @TODO: talk to electrical about the identification details
->>>>>>> 8827f00e3aa43ae6da96d9d814bcb3b83cf919d5
     box_type box;
 
     // Identify the circuit
