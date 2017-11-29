@@ -1,14 +1,26 @@
 #include <iostream>
 #include <robot_instr.h>
 #include <robot_link.h>
-#include "robot.h"
-#include "motor.h"
 #include "MotionControl.h"
+#include <stopwatch.h>
 
-int main()
+int main(int argc, char** argv)
 {
-	robot_link rlink;
-	
+	// parse node inputs
+
+    std::vector<MotionControl::Node > node_args;
+
+    for (int i = 1; i < argc; ++i)
+    {
+
+        node_args.push_back(static_cast<MotionControl::Node>(atoi(argv[i])));
+    }
+
+
+
+
+    robot_link rlink;
+
 	// Initialise the robot link
     #ifdef __arm__
         // Set up link on the ARM microprocessor
@@ -25,17 +37,44 @@ int main()
 			std::cout << "Connection established" << std::endl;
 		}
     #endif
-    
-    std::cout << "Port 0: " << rlink.request(READ_PORT_0) << std::endl;
-    std::cout << "Port 1: " << rlink.request(READ_PORT_1) << std::endl;
-    std::cout << "Port 2: " << rlink.request(READ_PORT_2) << std::endl;
-    
+
+
+    stopwatch watch;
+
     MotionControl controller(rlink);
-    int val = controller.robot.FollowLine();
-	
-	std::cout << "Exited with code " << val << std::endl;
-	
-    //MotionControl controller();
+
+    controller.ControlMotion(MotionControl::Sl);
+
+
+//    // raise to see line
+//    rlink.command(MOTOR_1_GO,127 + 128);
+//    while(!(rlink.request(READ_PORT_5) & 2)){}
+//    Wait(0.2);
+//    rlink.command(MOTOR_1_GO,0);
+//
+//    rlink.command(MOTOR_2_GO,120);
+//    rlink.command(MOTOR_3_GO,120+128);
+//
+//
+//
+//    rlink.command(MOTOR_1_GO,127 + 128);
+//    Wait(2);
+//    rlink.command(MOTOR_1_GO,0);
+//    Wait(5);
+//
+//    rlink.command(MOTOR_1_GO,127);
+//    while(!(rlink.request(READ_PORT_5) & 2)){}
+//    rlink.command(MOTOR_1_GO,0);
+
+
+//    while(rlink.request(READ_PORT_4) & 32)
+//    {}
+//
+//    std::cout<<"time to stop " << watch.stop() << std::endl;
+
+//    MotionControl controller(rlink);
+
+
 
 	return 0;
 }

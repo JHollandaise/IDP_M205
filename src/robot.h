@@ -51,6 +51,9 @@ private:
 
 public:
 
+    int readsensorL();
+    int readsensorM();
+    int readsensorR();
 
     enum direction {
         LEFT,

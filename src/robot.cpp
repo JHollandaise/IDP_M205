@@ -16,7 +16,7 @@
 // Robot member functions
 
 Robot::Robot(robot_link& RLINK):
-rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuator(Actuator(rlink)), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
+rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuator(Actuator(rlink)), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR, 1)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR, 2)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR, 4)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
 {   
 	/* 
     // Initialise the robot link
@@ -119,9 +119,9 @@ void Robot::TurnDegrees(const float& angle)
 
 const int Robot::FollowLine()
 {   // Line-following algorithm using straddling extreme sensors and a central sensor on the line - sensors are off if they are on the line
-    bool left_on;     // normally true
-    bool centre_on;    // normally false
-    bool right_on;   // normally true
+    int left_on;     // normally true
+    int centre_on;    // normally false
+    int right_on;   // normally true
 
     bool box_nearby;
 
@@ -193,8 +193,8 @@ void Robot::DropBoxes(bool bottom_box)
 
 Robot::box_type Robot::IdentifyBox()
 {   // Identify the box type by passing a current through the box circuitry and matching the voltage signature to pre-defined cases. Light the correct LEDs to show the box type
-    
-    // @TODO: talk to electrical about the identification details    
+
+    // @TODO: talk to electrical about the identification details
     box_type box;
 
     switch(box)
@@ -236,4 +236,3 @@ Robot::box_type Robot::IdentifyBox()
 
     return box;
 }
-
