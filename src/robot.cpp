@@ -3,6 +3,7 @@
 #include <robot_link.h>
 #include <ctime>
 #include <cstdlib>
+#include <stopwatch.h>
 
 #include "motor.h"
 #include "robot.h"
@@ -16,7 +17,7 @@
 // Robot member functions
 
 Robot::Robot(robot_link& RLINK):
-rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuatorTop(rlink, WRITE_PORT_5), actuatorBottom(rlink, WRITE_PORT_5), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
+rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuatorTop(rlink, WRITE_PORT_5), actuatorBottom(rlink, WRITE_PORT_5), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR, 1)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR, 2)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR, 4)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
 {
 	/* 
     // Initialise the robot link
@@ -92,7 +93,7 @@ void Robot::TurnDegrees(const float& angle)
     float velocity = 0;
 
     // Express angle in radians and use the wheel separation as the radius of curvature to determine the arc length of the curve taken
-    const uint arc_length = PI*abs(angle)/180 * WHEEL_SEPARATION;
+    const float arc_length = PI*abs(angle)*DEG_TO_RAD/180.0 * WHEEL_SEPARATION;
 
     if (angle > 0)
     {   // Drive the left wheel faster than the right for an amount of time
@@ -208,7 +209,7 @@ Robot::box_type Robot::IdentifyBox()
     int val = rlink.request(READ_PORT_5);
 
     stopwatch watch;
-    watch.start()
+    watch.start();
 
     // Set pin 7 (the pin connected to the box)
     rlink.command(WRITE_PORT_5, 64 && val);
@@ -222,11 +223,11 @@ Robot::box_type Robot::IdentifyBox()
     box_type box;
 
     // Identify the circuit
-    if (time > OPEN_TC - DETECTION_MARGIN && time < OPEN_TC + DETECTION_MARGIN) box_type = open;
-    else if (time > SHORT_CIRC_TC - DETECTION_MARGIN && time < SHORT_CIRC_TC + DETECTION_MARGIN) box_type = short_circ;
-    else if (time > CIRC_1_TC - DETECTION_MARGIN && time < CIRC_1_TC + DETECTION_MARGIN) box_type = res1;
-    else if (time > CIRC_2_TC - DETECTION_MARGIN && time < CIRC_2_TC + DETECTION_MARGIN) box_type = res2;
-    else if (time > CIRC_3_TC - DETECTION_MARGIN && time < CIRC_3_TC + DETECTION_MARGIN) box_type = res3;
+    if (time > OPEN_TC - DETECTION_MARGIN && time < OPEN_TC + DETECTION_MARGIN) box = open;
+    else if (time > SHORT_CIRC_TC - DETECTION_MARGIN && time < SHORT_CIRC_TC + DETECTION_MARGIN) box = short_circ;
+    else if (time > CIRC_1_TC - DETECTION_MARGIN && time < CIRC_1_TC + DETECTION_MARGIN) box = res1;
+    else if (time > CIRC_2_TC - DETECTION_MARGIN && time < CIRC_2_TC + DETECTION_MARGIN) box = res2;
+    else if (time > CIRC_3_TC - DETECTION_MARGIN && time < CIRC_3_TC + DETECTION_MARGIN) box = res3;
     else std::cout << "Box identification failed" << std::endl; return error;
 
 

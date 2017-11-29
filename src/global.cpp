@@ -1,9 +1,10 @@
+#include <iostream>
 #include <robot_link.h>
 #include <robot_instr.h>
 #include <ctime>
 #include "global.h"
 
-void Wait(const float& time)
+void wait(const float& time)
 {   // Wait by the specified amount of time
     clock_t t1 = clock();
 

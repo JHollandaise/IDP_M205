@@ -107,14 +107,14 @@ public:
 
     //----- Box interaction Methods ------//
 
-    void PickUpBoxes(const bool& bottomo_box);
-    void DropBoxes(const bool& bottom_box);
+    void PickUpBoxes(const bool& bottom_box = true);
+    void DropBoxes(const bool& bottom_box = true);
 
 
     Robot::box_type IdentifyBox();
 
     // determines whether the robot is to stop at the start nodes
-    //bool ReturnToStart = false;
+    bool ReturnToStart = false;
 
 };
 

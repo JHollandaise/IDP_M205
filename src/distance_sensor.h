@@ -7,7 +7,7 @@
 class DistanceSensor : public Sensor
 {
  public:
-    DistanceSensor(const robot_link& RLINK, const command_instruction& READ_NUMBER, const bool& STATUS = 1);
+    DistanceSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS = 1);
 
     const int GetOutput();
 

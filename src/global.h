@@ -8,8 +8,8 @@
 
 
 // Wheel parameters
-#define WHEEL_SEPARATION 0.0
-#define WHEEL_DIAMETER 0.0
+#define WHEEL_SEPARATION 0.3
+#define WHEEL_DIAMETER 0.105
 
 
 // Default values - @TODO: find empirically
