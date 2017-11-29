@@ -50,7 +50,7 @@ void Motor::RotateAngle(const float& angle, const int& speed)
     }
 
     // Wait for the amount of time required to complete the rotation
-    Wait(time);
+    wait(time);
 
     Rotate(0, true);
 }

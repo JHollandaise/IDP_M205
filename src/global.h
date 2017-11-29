@@ -18,8 +18,9 @@
 #define MAX_MOTOR_SPEED 127
 
 #define LIGHT_SENSOR_THRESHOLD 127
-#define DISTANCE_SENSOR_THRESHOLD 30
-#define DISTANCE_SENSOR_MARGIN 2
+#define DISTANCE_SENSOR_THRESHOLD 100
+#define DISTANCE_SENSOR_MARGIN 20
+#define DETECTION_MARGIN 2 
 
 #define CHASSIS_LIFT_ANGLE 90   // @TODO: find empirically 
 
@@ -38,8 +39,16 @@
 #define ROBOT_NUM 8
 
 
+// Time constants (in ms) for box detection
+#define OPEN_TC 0.0
+#define SHORT_CIRC_TC 0.0
+#define CIRC_1_TC 0.0
+#define CIRC_2_TC 0.0
+#define CIRC_3_TC 0.0
+
+
 // Constants used in conversion
-#define SPEED_TO_RPM 1  // @TODO: find empirically
+#define SPEED_TO_RPM 0.01  // @TODO: find empirically
 #define RPM_TO_RAD_PER_S 0.10471975512
 #define DEG_TO_RAD 0.01745
 
@@ -47,6 +56,8 @@
 // Custom type definitions
 typedef unsigned int uint;
 
-void Wait(const float&);
+void wait(const float&);
+robot_link setup_link();
+
 #endif
 

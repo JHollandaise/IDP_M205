@@ -64,7 +64,8 @@ public:
         short_circ,
         res1,
         res2,
-        res3
+        res3,
+        error
     };
 
     enum junction_type {
@@ -99,12 +100,12 @@ public:
     void StopAtStart();
 
 	void RaiseChassis();
+    void LowerChassis();
 
     //----- Box interaction Methods ------//
 
-    void PickUpBoxes();
-
-    void DropBoxes(bool bottom_box);
+    void PickUpBoxes(const bool& bottomo_box);
+    void DropBoxes(const bool& bottom_box);
 
 
     Robot::box_type IdentifyBox();

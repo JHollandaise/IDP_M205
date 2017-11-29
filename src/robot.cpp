@@ -16,31 +16,8 @@
 // Robot member functions
 
 Robot::Robot(robot_link& RLINK):
-<<<<<<< HEAD
 rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuatorTop(rlink, WRITE_PORT_5), actuatorBottom(rlink, WRITE_PORT_5), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
-=======
-rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuator(Actuator(rlink)), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
->>>>>>> master
-{   
-	/* 
-    // Initialise the robot link
-    #ifdef __arm__
-        // Set up link on the ARM microprocessor
-        if (!rlink.initialise ()) {
-            rlink.print_errs("  ");
-        } else {
-			std::cout << "Connection successful" << std::endl;
-		}
-    #else
-        // Set up link from the computer
-        if (!rlink.initialise (ROBOT_NUM)) {
-            rlink.print_errs("  ");
-        } else {
-			std::cout << "Connection established" << std::endl;
-		}
-    #endif
-    */
-
+{
     // Set motor directions - random for now
     motorLeftDir = true;
     motorRightDir = false;
@@ -55,7 +32,7 @@ void Robot::MoveForward(const uint& speed, const float& time)
 
     if (time > 0.0)
     {
-        Wait(time);
+        wait(time);
         StopMoving();
     }
 }
@@ -67,7 +44,7 @@ void Robot::MoveBackward(const uint& speed, const float& time)
 
     if (time > 0.0)
     {
-        Wait(time);
+        wait(time);
         StopMoving();
     }
 }
@@ -115,7 +92,7 @@ void Robot::TurnDegrees(const float& angle)
     motorLeft.Rotate(speed_left, motorLeftDir);
     motorRight.Rotate(speed_right, motorRightDir);
 
-    Wait(time);
+    wait(time);
 
     // Turn finished - drive motors at the same speed again
     MoveForward(mSpeed);
@@ -185,26 +162,53 @@ const int Robot::CheckForTurntable() {
 
 void Robot::RaiseChassis()
 {
-	motorChassis.Rotate(127, 3.0);
+	motorChassis.RotateAngle(CHASSIS_LIFT_ANGLE);
 }
 
-void Robot::PickUpBoxes()
-{   // Pick up a box by pressurising the actuators and raising the chassis
-      actuator.PistonUp();
-      motorChassis.RotateAngle(CHASSIS_LIFT_ANGLE);
-}
-
-void Robot::DropBoxes(bool bottom_box)
-{   // Drop a box by lowering the chassis and depressurising the actuators
+void Robot::LowerChassis()
+{
     motorChassis.RotateAngle(-CHASSIS_LIFT_ANGLE);
-    actuator.PistonDown();
+}
+
+void Robot::PickUpBoxes(const bool& bottom_box)
+{   // Pick up a box by pressurising the actuators and raising the chassis
+      actuatorTop.PistonUp();
+      if (bottom_box) actuatorBottom.PistonUp();
+      RaiseChassis();
+}
+
+void Robot::DropBoxes(const bool& bottom_box)
+{   // Drop a box by lowering the chassis and depressurising the actuators
+    LowerChassis();
+    actuatorTop.PistonDown();
+    if (bottom_box) actuatorBottom.PistonDown();
 }
 
 Robot::box_type Robot::IdentifyBox()
-{   // Identify the box type by passing a current through the box circuitry and matching the voltage signature to pre-defined cases. Light the correct LEDs to show the box type
+{   // Identify the box type by passing a current through the box circuitry and matching the response time to known circuit reponse times. Light the correct LEDs to show the box type
+    int val = rlink.request(READ_PORT_5);
+
+    stopwatch watch;
+    watch.start()
+
+    // Set pin 7 (the pin connected to the box)
+    rlink.command(WRITE_PORT_5, 64 && val);
     
-    // @TODO: talk to electrical about the identification details    
+    // Measure the time taken for the response to get to the correct level
+    while (rlink.request(READ_PORT_5) != (64 && val))
+    {}
+
+    int time = watch.stop();
     box_type box;
+
+    // Identify the circuit
+    if (time > OPEN_TC - DETECTION_MARGIN && time < OPEN_TC + DETECTION_MARGIN) box_type = open;
+    else if (time > SHORT_CIRC_TC - DETECTION_MARGIN && time < SHORT_CIRC_TC + DETECTION_MARGIN) box_type = short_circ;
+    else if (time > CIRC_1_TC - DETECTION_MARGIN && time < CIRC_1_TC + DETECTION_MARGIN) box_type = res1;
+    else if (time > CIRC_2_TC - DETECTION_MARGIN && time < CIRC_2_TC + DETECTION_MARGIN) box_type = res2;
+    else if (time > CIRC_3_TC - DETECTION_MARGIN && time < CIRC_3_TC + DETECTION_MARGIN) box_type = res3;
+    else std::cout << "Box identification failed" << std::endl; return error;
+
 
     switch(box)
     {   // Light LEDs in different patterns (depending on box type)
