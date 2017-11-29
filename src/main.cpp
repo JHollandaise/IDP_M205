@@ -13,8 +13,7 @@ int main()
 	robot_link rlink = setup_link();
 	
 	Robot robot(rlink);
-	robot.TurnDegrees(90.0);
-	//std::cout << robot.FollowLine() << std::endl;
+	std::cout << robot.FollowLine() << std::endl;
 	
 	// parse node inputs
 

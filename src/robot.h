@@ -87,7 +87,7 @@ public:
     void StopMoving();
 
     void MoveDist(const float& distance, const bool& reverse = false);
-    void TurnDegrees(const float& angle);
+    void TurnDegrees(const float& angle, const bool& both_wheels = false);
 
     const int FollowLine();
 

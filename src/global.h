@@ -14,7 +14,7 @@
 
 // Default values - @TODO: find empirically
 #define DEFAULT_ROBOT_TURN_ANGLE 1.0
-#define DEFAULT_MOTOR_SPEED 50
+#define DEFAULT_MOTOR_SPEED 127
 #define MAX_MOTOR_SPEED 127
 
 #define LIGHT_SENSOR_THRESHOLD 127
@@ -48,7 +48,7 @@
 
 
 // Constants used in conversion
-#define SPEED_TO_RPM 0.01  // @TODO: find empirically
+#define SPEED_TO_RPM 0.31
 #define RPM_TO_RAD_PER_S 0.10471975512
 #define DEG_TO_RAD 0.01745
 
@@ -56,6 +56,8 @@
 // Custom type definitions
 typedef unsigned int uint;
 
+
+// Global functions
 void wait(const float&);
 robot_link setup_link();
 

@@ -22,6 +22,7 @@ robot_link setup_link()
             rlink.print_errs("  ");
         } else {
 			std::cout << "Connection successful" << std::endl;
+			rlink.command(RAMP_TIME, 20);
 		}
     #else
         // Set up link from the computer
@@ -29,6 +30,7 @@ robot_link setup_link()
             rlink.print_errs("  ");
         } else {
 			std::cout << "Connection established" << std::endl;
+			rlink.command(RAMP_TIME, 20);
 		}
     #endif
 

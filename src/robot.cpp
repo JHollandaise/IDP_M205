@@ -42,11 +42,12 @@ rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rli
     motorLeftDir = true;
     motorRightDir = false;
     motorChassisDir = true;
+    
+    mSpeed = DEFAULT_MOTOR_SPEED;
 }
 
 void Robot::MoveForward(const uint& speed, const float& time)
 {   // Move the robot forward at the given speed for the given amount of time (or indefinitely if 'time' is 0.0)
-
     motorLeft.Rotate(speed, motorLeftDir);
     motorRight.Rotate(speed, motorRightDir);
 
@@ -81,32 +82,38 @@ void Robot::MoveDist(const float& distance, const bool& reverse)
     uint speed = mSpeed;
 
     const float time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RAD_PER_S));
+	std::cout << time << std::endl;
 
-    if (reverse) MoveBackward(time, speed);
-    else MoveForward(time, speed);
+    if (reverse) MoveBackward(speed, time);
+    else MoveForward(speed, time);
 }
 
-void Robot::TurnDegrees(const float& angle)
+void Robot::TurnDegrees(const float& angle, const bool& both_wheels)
 {   // Turns the robot **clockwise** through the specified angle
     int speed_left = 0;
     int speed_right = 0;
     float velocity = 0;
 
     // Express angle in radians and use the wheel separation as the radius of curvature to determine the arc length of the curve taken
-    const float arc_length = PI*abs(angle)*DEG_TO_RAD/180.0 * WHEEL_SEPARATION;
+    const float arc_length = abs(angle)* DEG_TO_RAD * WHEEL_SEPARATION;
 
     if (angle > 0)
     {   // Drive the left wheel faster than the right for an amount of time
         speed_left = MAX_MOTOR_SPEED;
-        velocity = (WHEEL_DIAMETER/2) * (speed_left * SPEED_TO_RPM * RPM_TO_RAD_PER_S);
+        velocity = (WHEEL_DIAMETER/2) * ((speed_left + speed_right) * SPEED_TO_RPM * RPM_TO_RAD_PER_S);
+        if (both_wheels) speed_right = MAX_MOTOR_SPEED + 128; velocity *= 2;
 
     } else if (angle < 0) {
         // Drive the right wheel faster than the left for an amount of time
         speed_right = MAX_MOTOR_SPEED;
         velocity = (WHEEL_DIAMETER/2) * (speed_right * SPEED_TO_RPM * RPM_TO_RAD_PER_S);
+        if (both_wheels) speed_left = MAX_MOTOR_SPEED + 128; velocity *= 2;
     }         
 
     const float time = arc_length/velocity;
+
+	std::cout << time << std::endl;
+	std::cout << speed_left << " " << speed_right << std::endl;
 
     // Make the turn
     motorLeft.Rotate(speed_left, motorLeftDir);
@@ -132,7 +139,10 @@ const int Robot::FollowLine()
         centre_on = LSensorCentre.GetOutput(); 
         right_on = LSensorRight.GetOutput();
 
-        box_nearby = DSensor.GetOutput();
+		std::cout << left_on << " " << centre_on << " " << right_on << std::endl;
+
+        //box_nearby = DSensor.GetOutput();
+		box_nearby = false;
 
         if (box_nearby)
         {   // The robot is near a box - a decision has to be made here
