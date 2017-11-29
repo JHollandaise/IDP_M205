@@ -1,6 +1,7 @@
 #include <iostream>
 #include <robot_instr.h>
 #include <robot_link.h>
+#include <stopwatch.h>
 #include "robot.h"
 #include "motor.h"
 
@@ -24,17 +25,17 @@ int main()
 			std::cout << "Connection established" << std::endl;
 		}
     #endif
-    
-    std::cout << "Port 0: " << rlink.request(READ_PORT_0) << std::endl;
-    std::cout << "Port 1: " << rlink.request(READ_PORT_1) << std::endl;
-    std::cout << "Port 2: " << rlink.request(READ_PORT_2) << std::endl;
-    
-    Robot robot(rlink);
-    int val = robot.FollowLine();
-	
-	std::cout << "Exited with code " << val << std::endl;
-	
-	
+
+	while (true)
+	{
+		std::cout << "High" << std::endl;
+		rlink.command(WRITE_PORT_5, 255);
+		Wait(1);
+		std::cout << "Low" << std::endl;
+		rlink.command(WRITE_PORT_5, 0);
+		Wait(1);
+	}
+
     //MotionControl controller();
 
 	return 0;

@@ -24,8 +24,9 @@ private:
     // The motor used to lift the chassis
     Motor motorChassis;
 
-    // The actuator used to clamp boxes
-    Actuator actuator;
+    // The actuators used to clamp boxes
+    Actuator actuatorTop;
+    Actuator actuatorBottom;
 
     // Determines what direction is "forward" for a given motor
     // True if **clockwise** is forward
@@ -97,6 +98,8 @@ public:
     // function ensures the robot stops in the start box correctly
     void StopAtStart();
 
+	void RaiseChassis();
+
     //----- Box interaction Methods ------//
 
     void PickUpBoxes();
@@ -107,7 +110,7 @@ public:
     Robot::box_type IdentifyBox();
 
     // determines whether the robot is to stop at the start nodes
-    bool ReturnToStart = false;
+    //bool ReturnToStart = false;
 
 };
 

@@ -11,12 +11,13 @@
 class Actuator
 {
  public:
-    Actuator(robot_link& RLINK);
+    Actuator(robot_link& RLINK, const command_instruction& PORT_NUMBER);
     void PistonDown();
     void PistonUp();
 
 private:
     robot_link rlink;
+    command_instruction PORT;
 
 };
 
