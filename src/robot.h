@@ -87,7 +87,7 @@ public:
 
     const int FollowLine();
 
-    int  JunctionAction(direction, junction_type);
+    int  JunctionAction(direction);
 
     int StartJunctionAction(direction);
 

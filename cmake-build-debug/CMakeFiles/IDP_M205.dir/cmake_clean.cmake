@@ -6,6 +6,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/IDP_M205.dir/src/motor.cpp.o"
   "CMakeFiles/IDP_M205.dir/src/robot.cpp.o"
   "CMakeFiles/IDP_M205.dir/src/sensor_base.cpp.o"
+  "CMakeFiles/IDP_M205.dir/src/actuator.cpp.o"
+  "CMakeFiles/IDP_M205.dir/src/led.cpp.o"
   "CMakeFiles/IDP_M205.dir/testing/drive_20cm.cpp.o"
   "CMakeFiles/IDP_M205.dir/testing/init_test.cpp.o"
   "CMakeFiles/IDP_M205.dir/testing/sensor_simulation.cpp.o"

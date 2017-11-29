@@ -11,7 +11,11 @@
 class Actuator
 {
  public:
+<<<<<<< HEAD
     Actuator(robot_link& RLINK, const command_instruction& PORT_NUMBER);
+=======
+    explicit Actuator(robot_link& RLINK);
+>>>>>>> master
     void PistonDown();
     void PistonUp();
 

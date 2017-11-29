@@ -1,6 +1,5 @@
 #include <robot_instr.h>
 #include <robot_link.h>
-#include "global.h"
 #include "actuator.h"
 
 // Class constructor
