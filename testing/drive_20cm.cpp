@@ -6,6 +6,8 @@
 
 int main()
 {
+    
+
     robot_link rlink;
     Robot robot(rlink);
 
