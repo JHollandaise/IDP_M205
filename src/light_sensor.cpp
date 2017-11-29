@@ -5,12 +5,12 @@
 
 // Light sensor definitions
 
-LightSensor::LightSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS):
-Sensor(RLINK, READ_NUMBER, STATUS)
+LightSensor::LightSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, int sensor_val, const bool& STATUS):
+Sensor(RLINK, READ_NUMBER, STATUS), sensor_val(sensor_val)
 {}
 
-const bool LightSensor::GetOutput()
+const int LightSensor::GetOutput()
 {   // Reads the sensor output through a robot_link request
-    return  rlink.request(READ_PORT) < LIGHT_SENSOR_THRESHOLD;
+    return  rlink.request(READ_PORT_5) & sensor_val;
 }
 

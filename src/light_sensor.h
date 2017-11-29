@@ -6,9 +6,11 @@
 class LightSensor : public Sensor
 {
 public:
-    LightSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER, const bool& STATUS = 1);
+    LightSensor(const robot_link& RLINK, const request_instruction& READ_NUMBER,  int sensor_val, const bool& STATUS = 1);
    
-    const bool GetOutput();
+    const int sensor_val;
+
+    const int GetOutput();
 }; 
 
 #endif
