@@ -3,8 +3,8 @@
 #include "actuator.h"
 
 // Class constructor
-Actuator::Actuator(robot_link& RLINK, const command_instruction& PORT_NUMBER):
-    rlink(RLINK), PORT(PORT_NUMBER)
+Actuator::Actuator(robot_link& RLINK, const command_instruction& PORT_NUMBER, const int& PIN_NUMBER):
+    rlink(RLINK), PORT(PORT_NUMBER), PIN(PIN_NUMBER)
 {}
 
 void Actuator::PistonDown()
@@ -14,6 +14,6 @@ void Actuator::PistonDown()
 
 void Actuator::PistonUp()
 {   // Pressurise actuator
-    rlink.command(PORT, 255);
+    rlink.command(PORT, PIN);
 }
 

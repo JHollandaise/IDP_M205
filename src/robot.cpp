@@ -16,7 +16,7 @@
 // Robot member functions
 
 Robot::Robot(robot_link& RLINK):
-rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuatorTop(rlink, WRITE_PORT_5), actuatorBottom(rlink, WRITE_PORT_5), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR, 1)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR, 2)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR, 4)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
+rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuatorTop(rlink, WRITE_PORT_5, 64), actuatorBottom(rlink, WRITE_PORT_5, 32), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR, 1)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR, 2)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR, 4)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
 {
 	/* 
     // Initialise the robot link
@@ -43,12 +43,16 @@ rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rli
     motorChassisDir = true;
     
     mSpeed = DEFAULT_MOTOR_SPEED;
+    l_speed = mSpeed;
+    r_speed = mSpeed;
 }
 
 void Robot::MoveForward(const uint& speed, const float& time)
 {   // Move the robot forward at the given speed for the given amount of time (or indefinitely if 'time' is 0.0)
     motorLeft.Rotate(speed, motorLeftDir);
     motorRight.Rotate(speed, motorRightDir);
+
+	mSpeed = speed;
 
     if (time > 0.0)
     {
@@ -62,6 +66,8 @@ void Robot::MoveBackward(const uint& speed, const float& time)
     motorLeft.Rotate(speed, !motorLeftDir);
     motorRight.Rotate(speed, !motorRightDir);
 
+	mSpeed = speed;
+
     if (time > 0.0)
     {
         wait(time);
@@ -73,12 +79,14 @@ void Robot::StopMoving()
 {   // Stops the front motors
     motorLeft.Rotate(0, motorLeftDir);
     motorRight.Rotate(0, motorRightDir);
+    
+    mSpeed = 0;
 }
 
 void Robot::MoveDist(const float& distance, const bool& reverse)
 {   // Move the robot forward by the specified distance (in m)
     // @TODO check how loading affects RPM
-    uint speed = mSpeed;
+    uint speed = DEFAULT_MOTOR_SPEED;
 
     const float time = distance / ((WHEEL_DIAMETER/2) * (speed * SPEED_TO_RPM * RPM_TO_RAD_PER_S));
 	std::cout << time << std::endl;
@@ -124,6 +132,15 @@ void Robot::TurnDegrees(const float& angle, const bool& both_wheels)
     MoveForward(mSpeed);
 }
 
+void Robot::SmoothTurn(const bool& clockwise)
+{	// Performs a smooth turn by introducing a differential speed between the robot's wheels
+	if (clockwise) { l_speed += DEFAULT_SMOOTH_ANGLE; r_speed -= DEFAULT_SMOOTH_ANGLE; }
+	else { l_speed -= DEFAULT_SMOOTH_ANGLE; r_speed += DEFAULT_SMOOTH_ANGLE; }
+	
+	motorLeft.Rotate(l_speed, motorLeftDir);
+	motorRight.Rotate(r_speed, motorRightDir);
+}
+
 const int Robot::FollowLine()
 {   // Line-following algorithm using straddling extreme sensors and a central sensor on the line - sensors are off if they are on the line
     bool left_on;     // normally true
@@ -132,33 +149,43 @@ const int Robot::FollowLine()
 
     bool box_nearby;
 
+	mSpeed = 100;
+	l_speed = mSpeed;
+	r_speed = mSpeed;
+
+	MoveForward(mSpeed, 0.0);
+
     while (true)
-    {
-        left_on = LSensorLeft.GetOutput();
-        centre_on = LSensorCentre.GetOutput();
-        right_on = LSensorRight.GetOutput();
+    {	
+        left_on = LSensorLeft.Output();
+        centre_on = LSensorCentre.Output();
+        right_on = LSensorRight.Output();
 
-        box_nearby = DSensor.ObjectNearby();
-		std::cout << left_on << " " << centre_on << " " << right_on << std::endl;
+        //box_nearby = DSensor.ObjectNearby();
 
-        //box_nearby = DSensor.GetOutput();
 		box_nearby = false;
 
         if (box_nearby)
         {   // The robot is near a box - a decision has to be made here
             return 1;
-        } else if (left_on && !centre_on && right_on) {} // Continue path 
+        } else if (left_on && !centre_on && right_on) { 
+			// Continue path 
+			l_speed = mSpeed; 
+			r_speed = mSpeed;
+			
+			MoveForward(mSpeed, 0.0);	
+		}
         // Turn left
-        else if (!left_on && right_on) TurnDegrees(-DEFAULT_ROBOT_TURN_ANGLE);
+        else if (!left_on && right_on) SmoothTurn(false);
         // Turn right
-        else if (left_on && !right_on) TurnDegrees(DEFAULT_ROBOT_TURN_ANGLE);
+        else if (left_on && !right_on) SmoothTurn(true);
         else if (!left_on && !right_on)
         {   // The robot has hit a junction - a decision has to be made here
             return 0;
         } else {   
             // The robot has lost the line completely - log this
             // @TODO add error log entry here
-            return -1;
+            std::cout << "Line lost" << std::endl;
         }
     }
 
@@ -310,19 +337,26 @@ void Robot::DropBoxes(const bool& top_box)
 
 Robot::box_type Robot::IdentifyBox()
 {   // Identify the box type by passing a current through the box circuitry and matching the response time to known circuit reponse times. Light the correct LEDs to show the box type
-    int val = rlink.request(READ_PORT_5);
+    int val = rlink.request(READ_PORT_4);
 
-    stopwatch watch;
+	// Flush signals
+	rlink.command(WRITE_PORT_4, 191 & val);
+	wait(0.1);
+	
+    // Set pin 7 (the pin connected to the box)
+    rlink.command(WRITE_PORT_4, 64 | val);
+	wait(5);
+	rlink.command(WRITE_PORT_4, 191 & val);
+	
+	stopwatch watch;
     watch.start();
 
-    // Set pin 7 (the pin connected to the box)
-    rlink.command(WRITE_PORT_5, 64 && val);
-
     // Measure the time taken for the response to get to the correct level
-    while (rlink.request(READ_PORT_5) != (64 && val))
+    while (rlink.request(READ_PORT_4) & 32)
     {}
 
     int time = watch.stop();
+	std::cout << time << std::endl;
 
     box_type box;
 
@@ -333,7 +367,6 @@ Robot::box_type Robot::IdentifyBox()
     else if (time > CIRC_2_TC - DETECTION_MARGIN && time < CIRC_2_TC + DETECTION_MARGIN) box = res2;
     else if (time > CIRC_3_TC - DETECTION_MARGIN && time < CIRC_3_TC + DETECTION_MARGIN) box = res3;
     else std::cout << "Box identification failed" << std::endl; return error;
-
 
     switch(box)
     {   // Light LEDs in different patterns (depending on box type)

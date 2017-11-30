@@ -13,7 +13,8 @@
 
 class Robot
 {
-private:
+//private:
+public:
     // Robot link for connecting to the robot
     robot_link rlink;
 
@@ -36,6 +37,8 @@ private:
 
     // Speed the robot is currently travelling at
     int mSpeed;
+    uint l_speed;
+    uint r_speed;
 
     // The three light sensors
     LightSensor LSensorLeft;
@@ -50,7 +53,7 @@ private:
     LED LED2;
     LED LED3;
 
-public:
+//public:
 
     enum direction {
         LEFT,
@@ -86,6 +89,7 @@ public:
 
     void MoveDist(const float& distance, const bool& reverse = false);
     void TurnDegrees(const float& angle, const bool& both_wheels = false);
+	void SmoothTurn(const bool& clockwise);
 
     const int FollowLine();
 

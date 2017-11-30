@@ -10,6 +10,7 @@ public:
    
     const int sensor_val;
 
+	const bool Output();
     const int GetOutput();
 }; 
 

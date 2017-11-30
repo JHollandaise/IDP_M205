@@ -11,18 +11,19 @@
 int main()
 {
 	robot_link rlink = setup_link();
+	Robot robot(rlink);
 	
+	/*
 	while (true)
-    {
-        std::cout << "High" << std::endl;
-        rlink.command(WRITE_PORT_5, 255);
-        wait(1);
-        std::cout << "Low" << std::endl;
-        rlink.command(WRITE_PORT_5, 0);
-        wait(1);
-    }
+	{
+		std::cout << robot.LSensorLeft.Output() << " " << robot.LSensorCentre.Output() << " " << robot.LSensorRight.Output() << std::endl;
+		wait(1);
+	}
+	*/
 	
-
+	std::cout << robot.FollowLine() << std::endl;
+	
+	//std::cout << robot.IdentifyBox() << std::endl;
 
 //    stopwatch watch;
 //    watch.start();

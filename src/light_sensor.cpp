@@ -9,8 +9,13 @@ LightSensor::LightSensor(const robot_link& RLINK, const request_instruction& REA
 Sensor(RLINK, READ_NUMBER, STATUS), sensor_val(sensor_val)
 {}
 
+const bool LightSensor::Output()
+{
+	return GetOutput() == 0;
+}
+
 const int LightSensor::GetOutput()
 {   // Reads the sensor output through a robot_link request
-    return  rlink.request(READ_PORT_5) & sensor_val;
+    return rlink.request(READ_PORT_5) & sensor_val;
 }
 

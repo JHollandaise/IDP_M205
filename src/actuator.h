@@ -12,7 +12,7 @@ class Actuator
 {
  public:
 
-    Actuator(robot_link& RLINK, const command_instruction& PORT_NUMBER);
+    Actuator(robot_link& RLINK, const command_instruction& PORT_NUMBER, const int& PIN_NUMBER);
 
     explicit Actuator(robot_link& RLINK);
 
@@ -22,6 +22,7 @@ class Actuator
 private:
     robot_link rlink;
     command_instruction PORT;
+    int PIN;
 
 };
 

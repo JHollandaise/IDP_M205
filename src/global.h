@@ -13,7 +13,8 @@
 
 
 // Default values - @TODO: find empirically
-#define DEFAULT_ROBOT_TURN_ANGLE 1.0
+#define DEFAULT_ROBOT_TURN_ANGLE 2.5
+#define DEFAULT_SMOOTH_ANGLE 0.5
 #define DEFAULT_MOTOR_SPEED 127
 #define MAX_MOTOR_SPEED 127
 
@@ -41,7 +42,7 @@
 
 // Time constants (in ms) for box detection
 #define OPEN_TC 0.0
-#define SHORT_CIRC_TC 0.0
+#define SHORT_CIRC_TC 10000.0
 #define CIRC_1_TC 0.0
 #define CIRC_2_TC 0.0
 #define CIRC_3_TC 0.0
