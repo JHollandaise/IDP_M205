@@ -8,10 +8,26 @@ Motor::Motor(robot_link& RLINK, const request_instruction& motor_number, const c
     rlink(RLINK), motorNumber(motor_number), motorGo(motor_go_number) 
 {}
 
-void Motor::Rotate(bool direction)
+
+void Motor::Rotate(const unsigned int &speed)
 {
-    // Drives motor forward at the default speed
-    Rotate(DEFAULT_MOTOR_SPEED, direction);
+    // Drives motor forward at 'speed'
+
+    // speed magnitude is given between 0-MAX_MOTOR_SPEED
+
+    // the direction variable determines whether the motor will spin in the clockwise or anti-clockwise direction
+    // direction true is **clockwise**
+
+    // motor_speed variable is passed to command to microcontroller
+    int motor_speed = speed;
+
+    if (motor_speed > 255)
+    {
+        // errorLog.Log(ErrorLog::ErrorType::MOTOR_SPEED);
+    } else {
+
+        rlink.command(motorGo, motor_speed);
+    }
 }
 
 void Motor::Rotate(const unsigned int &speed, bool direction)
