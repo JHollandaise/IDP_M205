@@ -134,18 +134,15 @@ const int Robot::FollowLine()
 
     while (true)
     {
-        left_on = LSensorLeft.Output();
-        centre_on = LSensorCentre.Output(); 
-        right_on = LSensorRight.Output();
+        left_on = LSensorLeft.GetOutput();
+        centre_on = LSensorCentre.GetOutput();
+        right_on = LSensorRight.GetOutput();
 
-<<<<<<< HEAD
         box_nearby = DSensor.ObjectNearby();
-=======
 		std::cout << left_on << " " << centre_on << " " << right_on << std::endl;
 
         //box_nearby = DSensor.GetOutput();
 		box_nearby = false;
->>>>>>> development
 
         if (box_nearby)
         {   // The robot is near a box - a decision has to be made here

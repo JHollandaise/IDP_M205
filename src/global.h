@@ -48,11 +48,7 @@
 
 
 // Constants used in conversion
-<<<<<<< HEAD
-#define SPEED_TO_RPM 0.31  // @TODO: find empirically
-=======
 #define SPEED_TO_RPM 0.31
->>>>>>> development
 #define RPM_TO_RAD_PER_S 0.10471975512
 #define DEG_TO_RAD 0.01745
 
