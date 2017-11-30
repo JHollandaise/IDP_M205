@@ -13,6 +13,7 @@ int main()
 {
 	robot_link rlink = setup_link();
 	
+<<<<<<< HEAD
 	while (true)
     {
         std::cout << "High" << std::endl;
@@ -48,6 +49,10 @@ int main() {
 
 >>>>>>> d3fc593ad79988e540801d6b4c36f668a1b01736
 	//std::cout << robot.FollowLine() << std::endl;
+=======
+	Robot robot(rlink);
+	std::cout << robot.FollowLine() << std::endl;
+>>>>>>> development
 	
 	// parse node inputs
 

@@ -41,17 +41,12 @@ void Motor::Rotate(const unsigned int &speed, bool direction)
 
     // motor_speed variable is passed to command to microcontroller
     int motor_speed = speed;
+    
+    // checks for direction and if reverse sets 8th bit of motor_speed
+    if (!direction) motor_speed += 128;
 
-    if (motor_speed > MAX_MOTOR_SPEED)
-    {
-        // errorLog.Log(ErrorLog::ErrorType::MOTOR_SPEED);
-    } else {
-
-        // checks for direction and if reverse sets 8th bit of motor_speed
-        if (!direction) motor_speed += 128;
-
-        rlink.command(motorGo, motor_speed);
-    }
+    rlink.command(motorGo, motor_speed);
+ 
 }
 
 void Motor::RotateAngle(const float& angle, const int& speed)
