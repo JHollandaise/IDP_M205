@@ -12,8 +12,17 @@ int main()
 {
 	robot_link rlink = setup_link();
 	
-	Robot robot(rlink);
-	robot.TurnDegrees(90.0);
+	while (true)
+    {
+        std::cout << "High" << std::endl;
+        rlink.command(WRITE_PORT_5, 255);
+        wait(1);
+        std::cout << "Low" << std::endl;
+        rlink.command(WRITE_PORT_5, 0);
+        wait(1);
+    }
+	
+	//Robot robot(rlink);
 	//std::cout << robot.FollowLine() << std::endl;
 	
 	// parse node inputs

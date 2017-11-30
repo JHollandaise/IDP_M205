@@ -120,23 +120,23 @@ void Robot::TurnDegrees(const float& angle)
 
 const int Robot::FollowLine()
 {   // Line-following algorithm using straddling extreme sensors and a central sensor on the line - sensors are off if they are on the line
-    int left_on;     // normally true
-    int centre_on;    // normally false
-    int right_on;   // normally true
+    bool left_on;     // normally true
+    bool centre_on;    // normally false
+    bool right_on;   // normally true
 
     bool box_nearby;
 
     while (true)
     {
-        left_on = LSensorLeft.GetOutput();
-        centre_on = LSensorCentre.GetOutput(); 
-        right_on = LSensorRight.GetOutput();
+        left_on = LSensorLeft.Output();
+        centre_on = LSensorCentre.Output(); 
+        right_on = LSensorRight.Output();
 
-        box_nearby = DSensor.GetOutput();
+        box_nearby = DSensor.ObjectNearby();
 
         if (box_nearby)
         {   // The robot is near a box - a decision has to be made here
-            return 0;
+            return 1;
         } else if (left_on && !centre_on && right_on) {} // Continue path 
         // Turn left
         else if (!left_on && right_on) TurnDegrees(-DEFAULT_ROBOT_TURN_ANGLE);
