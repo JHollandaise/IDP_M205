@@ -133,41 +133,38 @@ void MotionControl::NodeAction(MotionControl::Node node)
         switch (node) {
             case D1 :
             case D6 :
-                robot.JunctionAction(Robot::LEFT);
+                robot.JunctionAction(Robot::LEFT,Robot::dropoff);
                 break;
             case D5 :
             case D2 :
-                robot.JunctionAction(Robot::STRAIGHT);
+                robot.JunctionAction(Robot::STRAIGHT,Robot::dropoff);
+                robot.FollowLine();
                 break;
             case D3 :
             case D4 :
-                robot.JunctionAction(Robot::RIGHT);
+                robot.JunctionAction(Robot::RIGHT,Robot::dropoff);
             default:
                 break;
         }
-
-        // follow up to box
+        // find dropoff point
         robot.FollowLine();
 
         // box actions
         // drops off bottom box
-        robot.DropBoxes(true);
+        robot.DropBoxes(false);
 
         box_count[node]++;
         num_boxes--;
 
-        //@TODO roll robot back out of the way of the box just dropped
+        robot.MoveDist(0.1,true);
 
         // drop top two boxes
-        robot.DropBoxes(false);
+        robot.DropBoxes(true);
         robot.PickUpBoxes();
 
         // identify current box
         held_box = IdentifyBox(1);
 
-        // approach junction
-        robot.TurnDegrees(180.0);
-        robot.FollowLine();
     }
 
     else if (node==P1 || node == P2)
@@ -210,14 +207,14 @@ void MotionControl::NodeAction(MotionControl::Node node)
         switch (node)
         {
             case P1Su:
-                robot.JunctionAction(Robot::LEFT);
+                robot.JunctionAction(Robot::LEFT,Robot::start);
                 break;
             case P2Su:
-                robot.JunctionAction(Robot::RIGHT);
+                robot.JunctionAction(Robot::RIGHT,Robot::start);
                 break;
             case P1Sr:
             case P2Sl:
-                robot.JunctionAction(Robot::STRAIGHT);
+                robot.JunctionAction(Robot::STRAIGHT,Robot::start);
                 break;
             default:
                 break;
@@ -266,19 +263,20 @@ void MotionControl::NodeAction(MotionControl::Node node)
             // turn left cases
             case D1D2: case D2D3: case D3Dr: case D3S:
             case D6D5: case D5D4: case D4Dl: case D4S:
-                robot.JunctionAction(Robot::LEFT);
+
+                robot.JunctionAction(Robot::LEFT,Robot::standard);
                 break;
 
             // Turn right cases
             case D1Dr: case D1S: case D2D1: case D3D2:
             case D6Dl: case D6S: case D5D6: case D4D5:
-                robot.JunctionAction(Robot::RIGHT);
+                robot.JunctionAction(Robot::RIGHT,Robot::standard);
                 break;
 
             // straight on cases
             case D1D3: case D2Dr: case D2S: case D3D1:
             case D6D4: case D5Dl: case D5S: case D4D6:
-                robot.JunctionAction(Robot::STRAIGHT);
+                robot.JunctionAction(Robot::STRAIGHT,Robot::standard);
                 break;
             default:
                 break;
@@ -322,13 +320,13 @@ void MotionControl::NodeAction(MotionControl::Node node)
         switch (node)
         {
             case SSd:
-                robot.JunctionAction(Robot::STRAIGHT);
+                robot.JunctionAction(Robot::STRAIGHT,Robot::start);
                 break;
             case SSr:
-                robot.JunctionAction(Robot::LEFT);
+                robot.JunctionAction(Robot::LEFT,Robot::start);
                 break;
             case SSl:
-                robot.JunctionAction(Robot::RIGHT);
+                robot.JunctionAction(Robot::RIGHT,Robot::start);
                 break;
             default:
                 break;

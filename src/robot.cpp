@@ -13,7 +13,6 @@
 
 
 
-
 // Robot member functions
 
 Robot::Robot(robot_link& RLINK):
@@ -166,10 +165,45 @@ int Robot::StartJunctionAction(Robot::direction)
     return 0;
 }
 
-int Robot::JunctionAction(Robot::direction)
+int Robot::JunctionAction(Robot::direction turn_dir, Robot::junction_type junction_t)
 {
+    if(junction_t == dropoff)
+    {
+        if(turn_dir == LEFT)
+        {
+            MoveDist(0.2);
+            TurnDegrees(-90);
+            FindLine(LEFT);
+            return 0;
+        }
 
-    return 0;
+        if(turn_dir == RIGHT)
+        {
+            MoveDist(0.2);
+            TurnDegrees(90);
+            FindLine(RIGHT);
+            return 0;
+        }
+
+        if(turn_dir == STRAIGHT)
+        {
+            MoveDist(0.01);
+            return 0;
+        }
+    }
+
+    if(junction_t == start)
+    {
+
+    }
+
+    if(junction_t == standard)
+    {
+
+    }
+
+
+    return 1;
 }
 
 const int Robot::TurntableAction(Robot::direction direction) {
@@ -180,28 +214,87 @@ const int Robot::CheckForTurntable() {
     return 0;
 }
 
-void Robot::RaiseChassis()
-{
-	motorChassis.RotateAngle(CHASSIS_LIFT_ANGLE);
+void Robot::ChassisMidPos() {
+    if(chassis_pos==2)
+    {
+        while(!LSensorCentre.GetOutput())
+        {
+            motorChassis.Rotate(127);
+        }
+    }
+
+    if(chassis_pos==0||chassis_pos==2)
+    {
+        while(!LSensorCentre.GetOutput())
+        {
+            motorChassis.Rotate(127 + 128);
+        }
+    }
+    motorChassis.Rotate(0);
+    chassis_pos=1;
 }
 
-void Robot::LowerChassis()
+void Robot::ChassisTopPos()
 {
-    motorChassis.RotateAngle(-CHASSIS_LIFT_ANGLE);
+    if(chassis_pos==0)
+    {
+        while(!LSensorCentre.GetOutput())
+        {
+            motorChassis.Rotate(127 + 128);
+        }
+        wait(0.1);
+    }
+    if(chassis_pos==1||chassis_pos==0)
+    {
+        while(LSensorCentre.GetOutput())
+        {
+            motorChassis.Rotate(127 + 128);
+        }
+    }
+
+    wait(1);
+    motorChassis.Rotate(0);
+    chassis_pos=2;
+}
+
+void Robot::ChassisBottomPos()
+{
+
+    if(chassis_pos==2)
+    {
+        while(!LSensorCentre.GetOutput())
+        {
+            motorChassis.Rotate(127);
+        }
+        wait(0.1);
+    }
+
+
+    if (chassis_pos==1||chassis_pos==2)
+    {
+        while(LSensorCentre.GetOutput())
+        {
+            motorChassis.Rotate(127);
+        }
+        motorChassis.Rotate(0);
+    }
+
+    chassis_pos=0;
+
 }
 
 void Robot::PickUpBoxes(const bool& bottom_box)
 {   // Pick up a box by pressurising the actuators and raising the chassis
       actuatorTop.PistonUp();
       if (bottom_box) actuatorBottom.PistonUp();
-      RaiseChassis();
+      ChassisMidPos();
 }
 
-void Robot::DropBoxes(const bool& bottom_box)
+void Robot::DropBoxes(const bool& top_box)
 {   // Drop a box by lowering the chassis and depressurising the actuators
-    LowerChassis();
-    actuatorTop.PistonDown();
-    if (bottom_box) actuatorBottom.PistonDown();
+    ChassisBottomPos();
+    actuatorBottom.PistonDown();
+    if (top_box) actuatorTop.PistonDown();
 }
 
 Robot::box_type Robot::IdentifyBox()
@@ -213,7 +306,7 @@ Robot::box_type Robot::IdentifyBox()
 
     // Set pin 7 (the pin connected to the box)
     rlink.command(WRITE_PORT_5, 64 && val);
-    
+
     // Measure the time taken for the response to get to the correct level
     while (rlink.request(READ_PORT_5) != (64 && val))
     {}
@@ -270,3 +363,12 @@ Robot::box_type Robot::IdentifyBox()
 
     return box;
 }
+
+void Robot::FindLine(Robot::direction) {
+    while(!LSensorCentre.GetOutput())
+    {
+
+    }
+}
+
+

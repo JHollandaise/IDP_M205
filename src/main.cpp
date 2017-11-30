@@ -8,6 +8,7 @@
 #include "motor.h"
 #include "MotionControl.h"
 
+<<<<<<< HEAD
 int main()
 {
 	robot_link rlink = setup_link();
@@ -23,6 +24,29 @@ int main()
     }
 	
 	//Robot robot(rlink);
+=======
+int main() {
+    robot_link rlink = setup_link();
+
+//    MotionControl controller(rlink);
+
+    //	controller.ControlMotion(MotionControl::Sl);
+
+    stopwatch watch;
+    watch.start();
+
+    int val;
+
+    val = rlink.request(READ_PORT_4) | 64;
+
+    rlink.command(WRITE_PORT_4, val);
+    while (watch.read() < 5000) {}
+
+    val = rlink.request(READ_PORT_4) & 191;
+    rlink.command(WRITE_PORT_4, val);
+
+
+>>>>>>> d3fc593ad79988e540801d6b4c36f668a1b01736
 	//std::cout << robot.FollowLine() << std::endl;
 	
 	// parse node inputs

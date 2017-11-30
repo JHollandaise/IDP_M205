@@ -52,10 +52,6 @@ private:
 
 public:
 
-    int readsensorL();
-    int readsensorM();
-    int readsensorR();
-
     enum direction {
         LEFT,
         RIGHT,
@@ -79,6 +75,8 @@ public:
 
     Robot(robot_link& RLINK);
 
+    // starts in mid position
+    int chassis_pos = 1;
 
     //--------- Motion Methods -----------//
 
@@ -91,7 +89,7 @@ public:
 
     const int FollowLine();
 
-    int  JunctionAction(direction);
+    int  JunctionAction(direction, junction_type);
 
     int StartJunctionAction(direction);
 
@@ -102,9 +100,12 @@ public:
     // function ensures the robot stops in the start box correctly
     void StopAtStart();
 
-	void RaiseChassis();
-    void LowerChassis();
+    void ChassisTopPos();
+    void ChassisMidPos();
+    void ChassisBottomPos();
 
+
+    void FindLine(direction);
     //----- Box interaction Methods ------//
 
     void PickUpBoxes(const bool& bottom_box = true);
