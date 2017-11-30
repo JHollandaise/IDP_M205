@@ -14,7 +14,7 @@
 
 // Default values - @TODO: find empirically
 #define DEFAULT_ROBOT_TURN_ANGLE 2.5
-#define DEFAULT_SMOOTH_ANGLE 0.5
+#define DEFAULT_SMOOTH_ANGLE 1.2
 #define DEFAULT_MOTOR_SPEED 127
 #define MAX_MOTOR_SPEED 127
 

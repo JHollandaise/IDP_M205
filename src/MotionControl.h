@@ -66,12 +66,12 @@ public:
     };
 
     // maps boxes to their respective destination node(s)
-    std::map<box_type, Node> box_dests = {
-            {open,        D1},
-            {short_circ,  D1},
-            {res1,        D2},
-            {res2,        D4},
-            {res3,        D3}
+    std::map<Robot::box_type, Node> box_dests = {
+            {Robot::open,        D1},
+            {Robot::short_circ,  D1},
+            {Robot::res1,        D2},
+            {Robot::res2,        D4},
+            {Robot::res3,        D3}
     };
 
     // @TODO make private
@@ -102,13 +102,13 @@ public:
     box_type IdentifyBox(int num_boxes);
 
     // returns the required destination node(s) of box
-    Node GetDropOff(box_type box);
+    Node GetDropOff(Robot::box_type box);
 
 private:
 
 
     // box currently in bottom grip that has been identified
-    box_type held_box;
+    Robot::box_type held_box;
     // number of boxes held by robot
     int num_boxes;
 

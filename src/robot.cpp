@@ -16,7 +16,7 @@
 // Robot member functions
 
 Robot::Robot(robot_link& RLINK):
-rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuatorTop(rlink, WRITE_PORT_5, 64), actuatorBottom(rlink, WRITE_PORT_5, 32), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR, 1)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR, 2)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR, 4)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
+rlink(RLINK), motorLeft(Motor(rlink, MOTOR_1, MOTOR_1_GO)), motorRight(Motor(rlink, MOTOR_2, MOTOR_2_GO)), motorChassis(rlink, MOTOR_3, MOTOR_3_GO), actuatorTop(rlink, WRITE_PORT_5, READ_PORT_5, 32), actuatorBottom(rlink, WRITE_PORT_5, READ_PORT_5, 64), LSensorLeft(LightSensor(rlink, READ_LEFT_LIGHT_SENSOR, 1)), LSensorCentre(LightSensor(rlink, READ_CENTRE_LIGHT_SENSOR, 2)), LSensorRight(LightSensor(rlink, READ_RIGHT_LIGHT_SENSOR, 4)), DSensor(DistanceSensor(rlink, READ_DISTANCE_SENSOR)), LED1(LED(rlink, LED_1_PORT)), LED2(LED(rlink, LED_2_PORT)), LED3(LED(rlink, LED_3_PORT))
 {
 	/* 
     // Initialise the robot link
@@ -141,7 +141,7 @@ void Robot::SmoothTurn(const bool& clockwise)
 	motorRight.Rotate(r_speed, motorRightDir);
 }
 
-const int Robot::FollowLine()
+const int Robot::FollowLine(const float& time)
 {   // Line-following algorithm using straddling extreme sensors and a central sensor on the line - sensors are off if they are on the line
     bool left_on;     // normally true
     bool centre_on;    // normally false
@@ -149,13 +149,16 @@ const int Robot::FollowLine()
 
     bool box_nearby;
 
+    stopwatch follow_timer;
+
 	mSpeed = 100;
 	l_speed = mSpeed;
 	r_speed = mSpeed;
 
 	MoveForward(mSpeed, 0.0);
 
-    while (true)
+    if (time) follow_timer.start();
+    while (time == 0.0 || follow_timer.read() < time)
     {	
         left_on = LSensorLeft.Output();
         centre_on = LSensorCentre.Output();
@@ -185,7 +188,6 @@ const int Robot::FollowLine()
         } else {   
             // The robot has lost the line completely - log this
             // @TODO add error log entry here
-            std::cout << "Line lost" << std::endl;
         }
     }
 
@@ -209,17 +211,17 @@ int Robot::JunctionAction(Robot::direction turn_dir, Robot::junction_type juncti
     {
         if(turn_dir == LEFT)
         {
-            MoveDist(0.2);
-            TurnDegrees(-90);
-            FindLine(LEFT);
+            MoveDist(0.23);
+            TurnDegrees(-76,true);
+            FindLine(false);
             return 0;
         }
 
         if(turn_dir == RIGHT)
         {
-            MoveDist(0.2);
-            TurnDegrees(90);
-            FindLine(RIGHT);
+            MoveDist(0.22);
+            TurnDegrees(80,true);
+            FindLine(true);
             return 0;
         }
 
@@ -255,17 +257,17 @@ const int Robot::CheckForTurntable() {
 void Robot::ChassisMidPos() {
     if(chassis_pos==2)
     {
-        while(!LSensorCentre.GetOutput())
+        while(!LSensorCentre.Output())
         {
-            motorChassis.Rotate(127);
+            motorChassis.Rotate(127+128);
         }
     }
 
-    if(chassis_pos==0||chassis_pos==2)
+    if(chassis_pos==0)
     {
-        while(!LSensorCentre.GetOutput())
+        while(!LSensorCentre.Output())
         {
-            motorChassis.Rotate(127 + 128);
+            motorChassis.Rotate(127);
         }
     }
     motorChassis.Rotate(0);
@@ -276,21 +278,21 @@ void Robot::ChassisTopPos()
 {
     if(chassis_pos==0)
     {
-        while(!LSensorCentre.GetOutput())
+        while(!LSensorCentre.Output())
         {
-            motorChassis.Rotate(127 + 128);
+            motorChassis.Rotate(127);
         }
         wait(0.1);
     }
     if(chassis_pos==1||chassis_pos==0)
     {
-        while(LSensorCentre.GetOutput())
+        while(LSensorCentre.Output())
         {
-            motorChassis.Rotate(127 + 128);
+            motorChassis.Rotate(127);
         }
     }
 
-    wait(1);
+    wait(2);
     motorChassis.Rotate(0);
     chassis_pos=2;
 }
@@ -300,9 +302,9 @@ void Robot::ChassisBottomPos()
 
     if(chassis_pos==2)
     {
-        while(!LSensorCentre.GetOutput())
+        while(!LSensorCentre.Output())
         {
-            motorChassis.Rotate(127);
+            motorChassis.Rotate(127+128);
         }
         wait(0.1);
     }
@@ -310,9 +312,9 @@ void Robot::ChassisBottomPos()
 
     if (chassis_pos==1||chassis_pos==2)
     {
-        while(LSensorCentre.GetOutput())
+        while(LSensorCentre.Output())
         {
-            motorChassis.Rotate(127);
+            motorChassis.Rotate(127+128);
         }
         motorChassis.Rotate(0);
     }
@@ -321,11 +323,14 @@ void Robot::ChassisBottomPos()
 
 }
 
-void Robot::PickUpBoxes(const bool& bottom_box)
+void Robot::PickUpBoxes()
 {   // Pick up a box by pressurising the actuators and raising the chassis
-      actuatorTop.PistonUp();
-      if (bottom_box) actuatorBottom.PistonUp();
-      ChassisMidPos();
+    ChassisBottomPos();
+    actuatorTop.PistonUp();
+    actuatorBottom.PistonUp();
+
+    wait(0.5);
+    ChassisMidPos();
 }
 
 void Robot::DropBoxes(const bool& top_box)
@@ -333,10 +338,15 @@ void Robot::DropBoxes(const bool& top_box)
     ChassisBottomPos();
     actuatorBottom.PistonDown();
     if (top_box) actuatorTop.PistonDown();
+    ChassisMidPos();
 }
 
 Robot::box_type Robot::IdentifyBox()
 {   // Identify the box type by passing a current through the box circuitry and matching the response time to known circuit reponse times. Light the correct LEDs to show the box type
+
+    return open;
+
+
     int val = rlink.request(READ_PORT_4);
 
 	// Flush signals
@@ -408,10 +418,11 @@ Robot::box_type Robot::IdentifyBox()
     return box;
 }
 
-void Robot::FindLine(Robot::direction) {
-    while(!LSensorCentre.GetOutput())
+void Robot::FindLine(const bool& clockwise) {
+    while(!LSensorCentre.Output())
     {
-
+        if (clockwise) TurnDegrees(DEFAULT_ROBOT_TURN_ANGLE, true);
+        else TurnDegrees(-DEFAULT_ROBOT_TURN_ANGLE, true);
     }
 }
 

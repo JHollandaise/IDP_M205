@@ -107,7 +107,10 @@ int MotionControl::ControlMotion(MotionControl::Node starting_node)
         if (num_boxes > 0 )
         {
             // find where to drop next box
-            end_node = GetDropOff(held_box);
+            // @TODO ACTUALLY DETERMINE DROP OFF
+            //end_node = GetDropOff(held_box);
+
+            end_node = D5;
         }
         // otherwise pick up more boxes
         else end_node = P1;
@@ -146,9 +149,6 @@ void MotionControl::NodeAction(MotionControl::Node node)
             default:
                 break;
         }
-        // find dropoff point
-        robot.FollowLine();
-
         // box actions
         // drops off bottom box
         robot.DropBoxes(false);
@@ -160,10 +160,11 @@ void MotionControl::NodeAction(MotionControl::Node node)
 
         // drop top two boxes
         robot.DropBoxes(true);
+        wait(0.3);
         robot.PickUpBoxes();
 
         // identify current box
-        held_box = IdentifyBox(1);
+        held_box = robot.IdentifyBox();
 
     }
 
@@ -188,9 +189,10 @@ void MotionControl::NodeAction(MotionControl::Node node)
         }
 
         // identify bottom box
-        held_box = IdentifyBox(1);
+        held_box = robot.IdentifyBox();
 
-        robot.TurnDegrees(180.0);
+        robot.TurnDegrees(170.0);
+        robot.FindLine(true);
         robot.FollowLine();
     }
 
@@ -225,12 +227,22 @@ void MotionControl::NodeAction(MotionControl::Node node)
     else if (node==SlP1 || node== SrP2)
     {
         robot.FollowLine();
+        robot.FollowLine();
     }
 
     else if (node == SuDl || node == SuDr)
     {
-        // follow up to turntable
-        robot.FollowLine();
+        // follow up to ramp
+        robot.FollowLine(1000);
+
+        // lift up actuators
+        robot.ChassisTopPos();
+
+        // up ramp
+        robot.MoveDist(0.5);
+
+        // drop actuators
+        robot.ChassisMidPos();
 
         // turn at turntable
         switch (node)
@@ -337,13 +349,9 @@ void MotionControl::NodeAction(MotionControl::Node node)
     }
 }
 
-MotionControl::Node MotionControl::GetDropOff(MotionControl::box_type box)
+MotionControl::Node MotionControl::GetDropOff(Robot::box_type box)
 {
-    return box_dests[box];
+    return D1;
+//  return box_dests[box];
 }
-
-MotionControl::box_type MotionControl::IdentifyBox(int num_boxes) {
-    return open;
-}
-
 

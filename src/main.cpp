@@ -11,33 +11,22 @@
 int main()
 {
 	robot_link rlink = setup_link();
-	Robot robot(rlink);
-	
-	/*
-	while (true)
-	{
-		std::cout << robot.LSensorLeft.Output() << " " << robot.LSensorCentre.Output() << " " << robot.LSensorRight.Output() << std::endl;
-		wait(1);
-	}
-	*/
-	
-	std::cout << robot.FollowLine() << std::endl;
-	
-	//std::cout << robot.IdentifyBox() << std::endl;
 
-//    stopwatch watch;
-//    watch.start();
-//
-//    int val;
-//
-//    val = rlink.request(READ_PORT_4) | 64;
-//
-//    rlink.command(WRITE_PORT_4, val);
-//    while (watch.read() < 5000) {}
-//
-//    val = rlink.request(READ_PORT_4) & 191;
-//    rlink.command(WRITE_PORT_4, val);
+    MotionControl controller(rlink);
 
+    controller.robot.actuatorTop.PistonDown();
+    wait(1);
+    controller.robot.actuatorTop.PistonUp();
+    wait(1);
+
+//    while(true)
+//    {s
+//        std::cout<<controller.robot.LSensorCentre.Output();
+//        wait(0.5);
+//    }
+//    controller.robot.chassis_pos = 0;
+//    controller.robot.ChassisMidPos();
+    //controller.ControlMotion(MotionControl::Sl);
     return 0;
 }
 

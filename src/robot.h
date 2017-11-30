@@ -91,7 +91,7 @@ public:
     void TurnDegrees(const float& angle, const bool& both_wheels = false);
 	void SmoothTurn(const bool& clockwise);
 
-    const int FollowLine();
+    const int FollowLine(const float& time = 0.0);
 
     int  JunctionAction(direction, junction_type);
 
@@ -109,10 +109,10 @@ public:
     void ChassisBottomPos();
 
 
-    void FindLine(direction);
+    void FindLine(const bool&);
     //----- Box interaction Methods ------//
 
-    void PickUpBoxes(const bool& bottom_box = true);
+    void PickUpBoxes();
     void DropBoxes(const bool& bottom_box = true);
 
 
