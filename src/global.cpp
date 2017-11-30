@@ -15,7 +15,6 @@ void wait(const float& time)
 robot_link setup_link()
 {	// Initialise a robot link
     robot_link rlink;
-
     #ifdef __arm__
         // Set up link on the ARM microprocessor
         if (!rlink.initialise ()) {

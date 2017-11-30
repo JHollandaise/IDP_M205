@@ -95,8 +95,6 @@ public:
 
     int  JunctionAction(direction, junction_type);
 
-    int StartJunctionAction(direction);
-
     const int CheckForTurntable();
 
     const int TurntableAction(direction direction);

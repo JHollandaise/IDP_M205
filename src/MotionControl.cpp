@@ -9,6 +9,7 @@
 
 MotionControl::MotionControl(robot_link& rlink): robot(rlink)
 {
+    std::cout<<"mot int"<<std::endl;
 }
 
 
@@ -243,6 +244,8 @@ void MotionControl::NodeAction(MotionControl::Node node)
 
         // drop actuators
         robot.ChassisMidPos();
+
+        robot.FollowLine(800);
 
         // turn at turntable
         switch (node)

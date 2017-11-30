@@ -11,22 +11,28 @@
 int main()
 {
 	robot_link rlink = setup_link();
+//    MotionControl controller(rlink);
+    int val;
+    while(true)
+    {
+        val = rlink.request(READ_PORT_4);
+//        rlink.command(WRITE_PORT_4, val | 64);
+        rlink.command(WRITE_PORT_4, 255);
+        wait(1);
 
-    MotionControl controller(rlink);
+        val = rlink.request(READ_PORT_4);
+        std::cout<<(val & 64)<<std::endl;
+//        rlink.command(WRITE_PORT_4, val & 191);
+        rlink.command(WRITE_PORT_4, 0);
+        std::cout<<(rlink.request(READ_PORT_4))<<std::endl;
+        wait(2);
+    }
 
-    controller.robot.actuatorTop.PistonDown();
-    wait(1);
-    controller.robot.actuatorTop.PistonUp();
-    wait(1);
 
-//    while(true)
-//    {s
-//        std::cout<<controller.robot.LSensorCentre.Output();
-//        wait(0.5);
-//    }
-//    controller.robot.chassis_pos = 0;
+//
+//    controller.robot.chassis_pos = 2;
 //    controller.robot.ChassisMidPos();
-    //controller.ControlMotion(MotionControl::Sl);
+//    controller.ControlMotion(MotionControl::Sl);
     return 0;
 }
 

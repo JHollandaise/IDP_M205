@@ -200,10 +200,6 @@ void Robot::StopAtStart()
 
 }
 
-int Robot::StartJunctionAction(Robot::direction) 
-{
-    return 0;
-}
 
 int Robot::JunctionAction(Robot::direction turn_dir, Robot::junction_type junction_t)
 {
@@ -247,6 +243,21 @@ int Robot::JunctionAction(Robot::direction turn_dir, Robot::junction_type juncti
 }
 
 const int Robot::TurntableAction(Robot::direction direction) {
+
+    MoveDist(0.1);
+
+    if (direction==LEFT) {
+        TurnDegrees(-85,true);
+        FindLine(false);
+    }
+    if (direction==RIGHT) {
+        TurnDegrees(85,true);
+        FindLine(true);
+    }
+
+
+
+
     return 0;
 }
 
@@ -257,19 +268,17 @@ const int Robot::CheckForTurntable() {
 void Robot::ChassisMidPos() {
     if(chassis_pos==2)
     {
-        while(!LSensorCentre.Output())
-        {
-            motorChassis.Rotate(127+128);
-        }
+        motorChassis.Rotate(127+128);
+        while(!LSensorCentre.GetOutput()) {}
     }
 
     if(chassis_pos==0)
     {
-        while(!LSensorCentre.Output())
-        {
-            motorChassis.Rotate(127);
-        }
+        motorChassis.Rotate(127);
+        while(!LSensorCentre.GetOutput()){}
     }
+    if (chassis_pos==0) wait(1.5);
+    if (chassis_pos==2) wait(0.1);
     motorChassis.Rotate(0);
     chassis_pos=1;
 }
@@ -278,21 +287,17 @@ void Robot::ChassisTopPos()
 {
     if(chassis_pos==0)
     {
-        while(!LSensorCentre.Output())
-        {
-            motorChassis.Rotate(127);
-        }
+        motorChassis.Rotate(127);
+        while(!LSensorCentre.GetOutput()) {}
         wait(0.1);
     }
     if(chassis_pos==1||chassis_pos==0)
     {
-        while(LSensorCentre.Output())
-        {
-            motorChassis.Rotate(127);
-        }
+        motorChassis.Rotate(127);
+        while(LSensorCentre.GetOutput()) {}
     }
 
-    wait(2);
+    wait(3);
     motorChassis.Rotate(0);
     chassis_pos=2;
 }
@@ -302,23 +307,20 @@ void Robot::ChassisBottomPos()
 
     if(chassis_pos==2)
     {
-        while(!LSensorCentre.Output())
-        {
-            motorChassis.Rotate(127+128);
-        }
+        motorChassis.Rotate(127+128);
+        while(!LSensorCentre.GetOutput()) {}
         wait(0.1);
     }
 
 
     if (chassis_pos==1||chassis_pos==2)
     {
-        while(LSensorCentre.Output())
-        {
-            motorChassis.Rotate(127+128);
-        }
-        motorChassis.Rotate(0);
-    }
+        motorChassis.Rotate(127+128);
+        while(LSensorCentre.GetOutput()) {}
 
+    }
+    wait(0.25);
+    motorChassis.Rotate(0);
     chassis_pos=0;
 
 }
@@ -419,7 +421,7 @@ Robot::box_type Robot::IdentifyBox()
 }
 
 void Robot::FindLine(const bool& clockwise) {
-    while(!LSensorCentre.Output())
+    while(!LSensorCentre.GetOutput())
     {
         if (clockwise) TurnDegrees(DEFAULT_ROBOT_TURN_ANGLE, true);
         else TurnDegrees(-DEFAULT_ROBOT_TURN_ANGLE, true);
